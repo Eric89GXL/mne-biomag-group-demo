@@ -1,0 +1,329 @@
+
+
+.. _sphx_glr_auto_examples_demos_plot_tsss_analysis.py:
+
+
+==================================
+Analysis for one subject with tSSS
+==================================
+
+Show analysis of tSSS data.
+
+
+
+.. code-block:: python
+
+
+    import os
+    import os.path as op
+    import sys
+
+    import numpy as np
+
+    import mne
+
+    sys.path.append(op.join('..', '..', 'processing'))
+    from library.config import study_path, meg_dir, ylim  # noqa: E402
+
+
+
+
+
+
+
+Configuration
+
+
+
+.. code-block:: python
+
+
+    subjects_dir = os.path.join(study_path, 'subjects')
+
+    subject = "sub%03d" % 3
+    st_duration = 10
+
+    fname = op.join(study_path, 'ds117', subject, 'MEG', 'run_01_raw.fif')
+    raw = mne.io.read_raw_fif(fname)
+
+    fname = op.join(meg_dir, subject, 'run_01_filt_tsss_%d_raw.fif' % st_duration)
+    raw_filt = mne.io.read_raw_fif(fname)
+
+
+
+
+
+
+
+Filtering :ref:`sphx_glr_auto_scripts_04-python_filtering.py`.
+
+
+
+.. code-block:: python
+
+    raw.plot_psd(average=False, spatial_colors=True, fmax=40, show=False)
+    raw_filt.plot_psd(average=False, spatial_colors=True, fmax=40)
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_001.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_002.png
+            :scale: 47
+
+
+
+
+Events :ref:`sphx_glr_auto_scripts_02-extract_events.py`.
+Epochs :ref:`sphx_glr_auto_scripts_06-make_epochs.py`.
+
+
+
+.. code-block:: python
+
+    events = mne.read_events(op.join(meg_dir, subject, 'run_01-eve.fif'))
+    fig = mne.viz.plot_events(events, show=False)
+    fig.suptitle('Events from run 01')
+
+    epochs = mne.read_epochs(op.join(meg_dir, subject,
+                                     subject + '-tsss_%d-epo.fif' % st_duration))
+    epochs.plot_drop_log()
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_003.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_004.png
+            :scale: 47
+
+
+
+
+Evoked responses :ref:`sphx_glr_auto_scripts_07-make_evoked.py`
+
+
+
+.. code-block:: python
+
+    evo_fname = op.join(meg_dir, subject, '%s-tsss_%d-ave.fif'
+                        % (subject, st_duration))
+    evoked = mne.read_evokeds(evo_fname)
+
+
+
+
+
+
+
+Faces
+
+
+
+.. code-block:: python
+
+    famous_evo, scrambled_evo, unfamiliar_evo, contrast_evo, faces_evo = evoked[:5]
+    faces_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                   window_title='Faces %s' % subject)
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_005.png
+    :align: center
+
+
+
+
+Famous
+
+
+
+.. code-block:: python
+
+    famous_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                    window_title='Famous %s' % subject)
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_006.png
+    :align: center
+
+
+
+
+Scrambled
+
+
+
+.. code-block:: python
+
+    scrambled_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                       window_title='Scrambled %s' % subject)
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_007.png
+    :align: center
+
+
+
+
+Unfamiliar
+
+
+
+.. code-block:: python
+
+    unfamiliar_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                        window_title='Unfamiliar %s' % subject)
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_008.png
+    :align: center
+
+
+
+
+Faces - scrambled
+
+
+
+.. code-block:: python
+
+    contrast_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                      window_title='Faces - scrambled %s' % subject)
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_009.png
+    :align: center
+
+
+
+
+Topomaps
+
+
+
+.. code-block:: python
+
+    times = np.arange(0.05, 0.3, 0.025)
+    famous_evo.plot_topomap(times=times, title='Famous %s' % subject,
+                            show=False)
+    scrambled_evo.plot_topomap(times=times, title='Scrambled %s' % subject,
+                               show=False)
+    unfamiliar_evo.plot_topomap(times=times, title='Unfamiliar %s' % subject,
+                                show=False)
+    contrast_evo.plot_topomap(times=times, title='Faces - scrambled %s' % subject)
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_010.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_011.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_012.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_013.png
+            :scale: 47
+
+
+
+
+Covariance :ref:`sphx_glr_auto_scripts_07-make_evoked.py`.
+
+
+
+.. code-block:: python
+
+    cov = mne.read_cov(op.join(meg_dir, subject, '%s-tsss_%d-cov.fif'
+                               % (subject, st_duration)))
+    mne.viz.plot_cov(cov, faces_evo.info)
+    faces_evo.plot_white(cov)
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_014.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_015.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_tsss_analysis_016.png
+            :scale: 47
+
+
+
+
+**Total running time of the script:** ( 0 minutes  20.863 seconds)
+
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_tsss_analysis.py <plot_tsss_analysis.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_tsss_analysis.ipynb <plot_tsss_analysis.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_

@@ -12,7 +12,7 @@ from mne.parallel import parallel_func
 from mne.minimum_norm import (make_inverse_operator, apply_inverse,
                               write_inverse_operator)
 
-from library.config import meg_dir, spacing, N_JOBS
+from library.config import meg_dir, spacing, N_JOBS, l_freq
 
 
 def run_inverse(subject_id):
@@ -20,31 +20,36 @@ def run_inverse(subject_id):
     print("processing subject: %s" % subject)
     data_path = op.join(meg_dir, subject)
 
-    fname_ave = op.join(data_path, '%s-ave.fif' % subject)
-    fname_cov = op.join(data_path, '%s-cov.fif' % subject)
-    fname_fwd = op.join(data_path, '%s-meg-%s-fwd.fif' % (subject, spacing))
-    fname_inv = op.join(data_path, '%s-meg-%s-inv.fif' % (subject, spacing))
+    fname_ave = op.join(data_path,
+                        '%s_highpass-%sHz-ave.fif' % (subject, l_freq))
+    fname_cov = op.join(data_path,
+                        '%s_highpass-%sHz-cov.fif' % (subject, l_freq))
+    fname_fwd = op.join(data_path, '%s-meg-eeg-%s-fwd.fif'
+                        % (subject, spacing))
+    fname_inv = op.join(data_path, '%s-meg-eeg-%s-inv.fif'
+                        % (subject, spacing))
 
-    evokeds = mne.read_evokeds(fname_ave, condition=[0, 1, 2, 3, 4])
+    evokeds = mne.read_evokeds(
+        fname_ave, condition=['scrambled', 'unfamiliar', 'famous',
+                              'faces', 'contrast',
+                              'faces_eq', 'scrambled_eq'])
     cov = mne.read_cov(fname_cov)
+    forward = mne.read_forward_solution(fname_fwd)
 
-    forward = mne.read_forward_solution(fname_fwd, surf_ori=True)
-
-    # make an M/EEG, MEG-only, and EEG-only inverse operators
+    # This will be an MEG-only inverse because the 3-layer BEMs are not
+    # reliable, so our forward only has MEG channels.
     info = evokeds[0].info
-    inverse_operator = make_inverse_operator(info, forward, cov, loose=0.2,
-                                             depth=0.8)
-
+    inverse_operator = make_inverse_operator(
+        info, forward, cov, loose=0.2, depth=0.8)
     write_inverse_operator(fname_inv, inverse_operator)
 
-    # Compute inverse solution
+    # Apply inverse
     snr = 3.0
     lambda2 = 1.0 / snr ** 2
 
     for evoked in evokeds:
         stc = apply_inverse(evoked, inverse_operator, lambda2, "dSPM",
-                            pick_ori=None)
-
+                            pick_ori='vector')
         stc.save(op.join(data_path, 'mne_dSPM_inverse-%s' % evoked.comment))
 
 

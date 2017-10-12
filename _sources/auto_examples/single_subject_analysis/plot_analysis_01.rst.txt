@@ -1,0 +1,525 @@
+
+
+.. _sphx_glr_auto_examples_single_subject_analysis_plot_analysis_01.py:
+
+
+=======================
+Analysis for subject 01
+=======================
+
+Run the analysis.
+
+
+
+.. code-block:: python
+
+    import os.path as op
+    import sys
+
+    import numpy as np
+
+    import mne
+
+    sys.path.append(op.join('..', '..', 'processing'))
+    from library.config import study_path, meg_dir, ylim, l_freq  # noqa: E402
+
+
+
+
+
+
+
+Configuration
+
+
+
+.. code-block:: python
+
+
+    subjects_dir = op.join(study_path, 'subjects')
+
+    subject = "sub001"
+    subject_dir = op.join(meg_dir, subject)
+
+
+
+
+
+
+
+Continuous data
+
+
+
+.. code-block:: python
+
+    raw_fname = op.join(study_path, 'ds117', subject, 'MEG', 'run_01_raw.fif')
+    raw_filt_fname = op.join(subject_dir,
+                             'run_01_filt_sss_highpass-%sHz_raw.fif' % l_freq)
+    raw = mne.io.read_raw_fif(raw_fname)
+    raw_filt = mne.io.read_raw_fif(raw_filt_fname)
+
+
+
+
+
+
+
+Filtering :ref:`sphx_glr_auto_scripts_04-python_filtering.py`.
+
+
+
+.. code-block:: python
+
+    raw.plot_psd(n_fft=8192, average=False)
+    raw_filt.plot_psd(n_fft=8192, average=False)
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_001.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_002.png
+            :scale: 47
+
+
+
+
+Events :ref:`sphx_glr_auto_scripts_02-extract_events.py`.
+Epochs :ref:`sphx_glr_auto_scripts_06-make_epochs.py`.
+
+
+
+.. code-block:: python
+
+    eve_fname = op.join(subject_dir, 'run_01_filt_sss-eve.fif')
+    epo_fname = op.join(subject_dir,
+                        '%s_highpass-%sHz-epo.fif' % (subject, l_freq))
+
+    events = mne.read_events(eve_fname)
+    fig = mne.viz.plot_events(events, show=False)
+    fig.suptitle('Events from run 01')
+
+    epochs = mne.read_epochs(epo_fname)
+    epochs.plot_drop_log()
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_003.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_004.png
+            :scale: 47
+
+
+
+
+Evoked responses :ref:`sphx_glr_auto_scripts_07-make_evoked.py`
+
+
+
+.. code-block:: python
+
+    ave_fname = op.join(subject_dir,
+                        '%s_highpass-%sHz-ave.fif' % (subject, l_freq))
+    evoked = mne.read_evokeds(ave_fname)
+
+
+
+
+
+
+
+Faces
+
+
+
+.. code-block:: python
+
+    famous_evo, scrambled_evo, unfamiliar_evo, contrast_evo, faces_evo = evoked[:5]
+    faces_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                   window_title='Faces %s' % subject)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_005.png
+    :align: center
+
+
+
+
+Famous
+
+
+
+.. code-block:: python
+
+    famous_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                    window_title='Famous %s' % subject)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_006.png
+    :align: center
+
+
+
+
+Scrambled
+
+
+
+.. code-block:: python
+
+    scrambled_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                       window_title='Scrambled %s' % subject)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_007.png
+    :align: center
+
+
+
+
+Unfamiliar
+
+
+
+.. code-block:: python
+
+    unfamiliar_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                        window_title='Unfamiliar %s' % subject)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_008.png
+    :align: center
+
+
+
+
+Faces - scrambled
+
+
+
+.. code-block:: python
+
+    contrast_evo.plot(spatial_colors=True, gfp=True, ylim=ylim,
+                      window_title='Faces - scrambled %s' % subject)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_009.png
+    :align: center
+
+
+
+
+Topomaps
+
+
+
+.. code-block:: python
+
+    times = np.arange(0.05, 0.3, 0.025)
+    famous_evo.plot_topomap(times=times, title='Famous %s' % subject,
+                            show=False)
+    scrambled_evo.plot_topomap(times=times, title='Scrambled %s' % subject,
+                               show=False)
+    unfamiliar_evo.plot_topomap(times=times, title='Unfamiliar %s' % subject,
+                                show=False)
+    contrast_evo.plot_topomap(times=times, title='Faces - scrambled %s' % subject,
+                              show=True)
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_010.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_011.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_012.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_013.png
+            :scale: 47
+
+
+
+
+ICA
+
+
+
+.. code-block:: python
+
+    ica_fname = op.join(subject_dir, 'run_01-ica.fif')
+    ica = mne.preprocessing.read_ica(ica_fname)
+    ica.plot_sources(raw_filt, show=True)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_014.png
+    :align: center
+
+
+
+
+TFR :ref:`sphx_glr_auto_scripts_09-time_frequency.py`.
+
+
+
+.. code-block:: python
+
+    fpower = mne.time_frequency.read_tfrs(
+        op.join(subject_dir, '%s-faces-tfr.h5' % subject))[0]
+    fitc = mne.time_frequency.read_tfrs(
+        op.join(subject_dir, '%s-itc_faces-tfr.h5' % subject))[0]
+    spower = mne.time_frequency.read_tfrs(
+        op.join(subject_dir, '%s-scrambled-tfr.h5' % subject))[0]
+    sitc = mne.time_frequency.read_tfrs(
+        op.join(subject_dir, '%s-itc_scrambled-tfr.h5' % subject))[0]
+    channel = 'EEG065'
+    idx = [fpower.ch_names.index(channel)]
+    fpower.plot(idx, title='Faces power %s' % channel, baseline=(-0.1, 0.0),
+                mode='logratio', show=False)
+    spower.plot(idx, title='Scrambled power %s' % channel, baseline=(-0.1, 0.0),
+                mode='logratio', show=False)
+    fitc.plot(idx, title='Faces ITC %s' % channel, baseline=(-0.1, 0.0),
+              mode='logratio', show=False)
+    sitc.plot(idx, title='Scrambled ITC %s' % channel, baseline=(-0.1, 0.0),
+              mode='logratio')
+
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_015.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_016.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_017.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_018.png
+            :scale: 47
+
+
+
+
+Covariance :ref:`sphx_glr_auto_scripts_07-make_evoked.py`.
+
+
+
+.. code-block:: python
+
+    cov_fname = op.join(subject_dir,
+                        '%s_highpass-%sHz-cov.fif' % (subject, l_freq))
+    cov = mne.read_cov(cov_fname)
+    mne.viz.plot_cov(cov, faces_evo.info)
+    faces_evo.plot_white(cov)
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_019.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_020.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_021.png
+            :scale: 47
+
+
+
+
+Trans
+
+
+
+.. code-block:: python
+
+    fname_trans = op.join(study_path, 'ds117', subject, 'MEG',
+                          '%s-trans.fif' % subject)
+    bem = mne.read_bem_surfaces(op.join(subjects_dir, subject, 'bem',
+                                        '%s-5120-bem.fif' % subject))
+    src = mne.read_source_spaces(
+        op.join(subjects_dir, subject, 'bem', '%s-oct6-src.fif' % subject))
+    mne.viz.plot_alignment(famous_evo.info, fname_trans, subject=subject,
+                           subjects_dir=subjects_dir, bem=bem, src=src,
+                           surfaces='inner_skull')
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_022.png
+    :align: center
+
+
+
+
+Faces :ref:`sphx_glr_auto_scripts_13-make_inverse.py`.
+
+
+
+.. code-block:: python
+
+
+
+    def plot_stc(cond, figure=None):
+        fname = op.join(subject_dir, 'mne_dSPM_inverse-%s' % cond)
+        stc = mne.read_source_estimate(fname, subject).magnitude()
+        brain = stc.plot(subject=subject, subjects_dir=subjects_dir, views=['ven'],
+                         hemi='both', initial_time=0.17, time_unit='s',
+                         figure=figure)
+        return brain
+
+
+    brain_faces = plot_stc('faces', figure=1)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_023.png
+    :align: center
+
+
+
+
+Faces - scrambled
+
+
+
+.. code-block:: python
+
+    brain_contrast = plot_stc('contrast', figure=2)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_024.png
+    :align: center
+
+
+
+
+LCMV Faces - scrambled
+
+
+
+.. code-block:: python
+
+    fname = op.join(subject_dir, 'mne_LCMV_inverse-contrast')
+    stc = mne.read_source_estimate(fname, subject)
+    stc.plot(subject=subject, subjects_dir=subjects_dir, views=['ven'],
+             hemi='both', initial_time=0.17, time_unit='s', figure=3)
+
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_025.png
+    :align: center
+
+
+
+
+BEM
+
+
+
+.. code-block:: python
+
+    mne.viz.plot_bem(subject, subjects_dir)
+
+
+
+.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_01_026.png
+    :align: center
+
+
+
+
+**Total running time of the script:** ( 0 minutes  34.398 seconds)
+
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_analysis_01.py <plot_analysis_01.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_analysis_01.ipynb <plot_analysis_01.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
