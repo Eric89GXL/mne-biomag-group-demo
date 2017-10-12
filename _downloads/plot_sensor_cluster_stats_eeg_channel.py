@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-===========================================
-Non-parametric statistics on one EEG sensor
-===========================================
+=======================================
+Temporal clustering on a single channel
+=======================================
 
 Run a non-parametric cluster stats on sensor EEG070
 on the contrast faces vs. scrambled.

@@ -3,9 +3,9 @@
 .. _sphx_glr_auto_scripts_11-group_average_sensors.py:
 
 
-=================================
-Group average at the sensor level
-=================================
+=====================================
+11. Group average at the sensor level
+=====================================
 
 The EEG-channel data are averaged for group averages.
 

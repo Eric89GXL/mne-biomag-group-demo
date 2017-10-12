@@ -3,10 +3,12 @@
 .. _sphx_glr_auto_scripts_99-make_reports.py:
 
 
-Make report
-===========
+================
+99. Make reports
+================
 
-Builds an html report containing all the relevant analysis plots.
+Builds an HTML report for each subject containing all the relevant analysis
+plots.
 
 
 
@@ -111,7 +113,6 @@ Builds an html report containing all the relevant analysis plots.
 
     rep.save(fname=op.join(meg_dir, 'report_average.html'),
              open_browser=False, overwrite=True)
-
 
 **Total running time of the script:** ( 0 minutes  0.000 seconds)
 

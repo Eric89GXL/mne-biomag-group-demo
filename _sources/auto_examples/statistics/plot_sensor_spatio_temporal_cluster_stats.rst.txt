@@ -3,9 +3,9 @@
 .. _sphx_glr_auto_examples_statistics_plot_sensor_spatio_temporal_cluster_stats.py:
 
 
-============================================================
-Non-parametric spatio-temporal statistics on EEG sensor data
-============================================================
+=============================================
+Spatio-temporal sensor-space statistics (EEG)
+=============================================
 
 Run a non-parametric spatio-temporal cluster stats on EEG sensors
 on the contrast faces vs. scrambled.
@@ -252,7 +252,7 @@ Visualize the spatio-temporal clusters
 
 
 
-**Total running time of the script:** ( 0 minutes  8.986 seconds)
+**Total running time of the script:** ( 0 minutes  9.020 seconds)
 
 
 

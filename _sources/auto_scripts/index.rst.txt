@@ -273,7 +273,7 @@ Processing scripts
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Compute inverse solution for each evoked data set. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Compute and apply a dSPM inverse solution for each evoked data set. ">
 
 .. only:: html
 
@@ -353,7 +353,7 @@ Processing scripts
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Builds an html report containing all the relevant analysis plots. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Builds an HTML report for each subject containing all the relevant analysis plots. ">
 
 .. only:: html
 

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Evoked data &#8212; MNE Biomag Demo</title>
+    <title>07. Evoked data &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
@@ -76,7 +76,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Evoked data</a></li>
+<li><a class="reference internal" href="#">07. Evoked data</a></li>
 </ul>
 </ul>
 </li>
@@ -109,7 +109,7 @@
     <div class="col-md-12 content">
       
   <div class="section" id="evoked-data">
-<span id="sphx-glr-auto-scripts-07-make-evoked-py"></span><h1>Evoked data<a class="headerlink" href="#evoked-data" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-scripts-07-make-evoked-py"></span><h1>07. Evoked data<a class="headerlink" href="#evoked-data" title="Permalink to this headline">¶</a></h1>
 <p>The evoked data sets are created by averaging different categories of epochs.
 The evoked data is saved using categories ‘famous’, ‘scrambled’, ‘unfamiliar’,
 ‘contrast’ and ‘faces’.</p>
@@ -166,7 +166,7 @@ The evoked data is saved using categories ‘famous’, ‘scrambled’, ‘unfa
                                          <span class="n">evoked_faces_eq</span><span class="p">,</span> <span class="n">evoked_scrambled_eq</span><span class="p">])</span>
 
 
-<span class="n">parallel</span><span class="p">,</span> <span class="n">run_func</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">run_evoked</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">parallel</span><span class="p">,</span> <span class="n">run_func</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">run_evoked</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">)</span>
 <span class="n">parallel</span><span class="p">(</span><span class="n">run_func</span><span class="p">(</span><span class="n">subject_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">subject_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
 <span class="n">parallel</span><span class="p">(</span><span class="n">run_func</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">tsss</span><span class="p">)</span> <span class="k">for</span> <span class="n">tsss</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Maxwell filtered data</span>
 </pre></div>

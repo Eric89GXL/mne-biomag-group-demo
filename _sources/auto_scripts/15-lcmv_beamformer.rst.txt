@@ -3,8 +3,9 @@
 .. _sphx_glr_auto_scripts_15-lcmv_beamformer.py:
 
 
-LCMV beamformer
-===============
+===================
+15. LCMV beamformer
+===================
 
 Compute LCMV beamformer.
 

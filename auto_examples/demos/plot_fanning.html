@@ -187,7 +187,7 @@ visible (see above) and the “fanning” has disappeared.</p>
 <img alt="../../_images/sphx_glr_plot_fanning_002.png" class="align-center" src="../../_images/sphx_glr_plot_fanning_002.png" />
 <p>Finally, we can also use the tSSS data which has a highpass
 filtering effect and the “fanning” will not be visible also in this case.
-See <a class="reference internal" href="../../auto_scripts/03-maxwell_filtering.html#sphx-glr-auto-scripts-03-maxwell-filtering-py"><span class="std std-ref">Maxwell filter using MNE-python</span></a>.</p>
+See <a class="reference internal" href="../../auto_scripts/03-maxwell_filtering.html#sphx-glr-auto-scripts-03-maxwell-filtering-py"><span class="std std-ref">03. Maxwell filter using MNE-python</span></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="s1">&#39;run_01_filt_tsss_1_raw.fif&#39;</span><span class="p">)</span>
 <span class="n">raw</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="View documentation for mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">evoked</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.Epochs.html#mne.Epochs" title="View documentation for mne.Epochs"><span class="n">Epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_ids</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
@@ -200,7 +200,7 @@ See <a class="reference internal" href="../../auto_scripts/03-maxwell_filtering.
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_fanning_003.png" class="align-center" src="../../_images/sphx_glr_plot_fanning_003.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  19.414 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  17.452 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_fanning.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fanning.py</span></code></a></div>

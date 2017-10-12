@@ -3,9 +3,9 @@
 .. _sphx_glr_auto_examples_statistics_plot_sensor_cluster_stats_eeg_channel.py:
 
 
-===========================================
-Non-parametric statistics on one EEG sensor
-===========================================
+=======================================
+Temporal clustering on a single channel
+=======================================
 
 Run a non-parametric cluster stats on sensor EEG070
 on the contrast faces vs. scrambled.
@@ -185,7 +185,7 @@ Visualize results
 
 
 
-**Total running time of the script:** ( 0 minutes  6.165 seconds)
+**Total running time of the script:** ( 0 minutes  6.120 seconds)
 
 
 

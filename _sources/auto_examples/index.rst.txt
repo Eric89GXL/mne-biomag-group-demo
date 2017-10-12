@@ -43,7 +43,7 @@ Qualitative group analysis plots.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Run the group analysis. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Grand-average group contrasts for sensor space, dSPM, and LCMV. ">
 
 .. only:: html
 
@@ -64,8 +64,8 @@ Qualitative group analysis plots.
 
     <div style='clear:both'></div>
 
-Statistics
-----------
+Statistics and machine learning
+-------------------------------
 
 Statistical analyses of the data.
 
@@ -157,7 +157,7 @@ Statistical analyses of the data.
 Demos
 -----
 
-Demos with the data.
+Some simple demos with the data.
 
 
 
@@ -284,10 +284,10 @@ Demos with the data.
 
     <div style='clear:both'></div>
 
-Single subject analysis
+Single-subject analyses
 -----------------------
 
-Analysis of single subjects.
+Analysis of individual subjects.
 
 
 

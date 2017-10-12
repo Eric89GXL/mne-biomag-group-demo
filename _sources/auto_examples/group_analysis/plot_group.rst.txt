@@ -3,15 +3,17 @@
 .. _sphx_glr_auto_examples_group_analysis_plot_group.py:
 
 
-==============
-Group analysis
-==============
+====================
+Group grand averages
+====================
 
-Run the group analysis.
+Grand-average group contrasts for sensor space, dSPM, and LCMV.
 
 
 
 .. code-block:: python
+
+    # sphinx_gallery_thumbnail_number = 1
 
     import os.path as op
     import sys
@@ -133,7 +135,8 @@ Source-space. See :ref:`sphx_glr_auto_scripts_14-group_average_source.py`
 
     brain = stc.plot(views=['ven'], hemi='both', subject='fsaverage',
                      subjects_dir=subjects_dir, initial_time=0.17, time_unit='s',
-                     figure=1, clim=dict(kind='value', lims=(0.5, 1.5, 2.5)))
+                     figure=1, clim=dict(kind='value', lims=(0.5, 1.5, 2.5)),
+                     background='white')
 
 
 
@@ -155,7 +158,8 @@ LCMV beamformer
 
     brain = stc.plot(views=['ven'], hemi='both', subject='fsaverage',
                      subjects_dir=subjects_dir, initial_time=0.17, time_unit='s',
-                     figure=2, clim=dict(kind='value', lims=(0.02, 0.03, 0.04)))
+                     figure=2, clim=dict(kind='value', lims=(0.02, 0.03, 0.04)),
+                     background='white')
 
 
 
@@ -165,7 +169,7 @@ LCMV beamformer
 
 
 
-**Total running time of the script:** ( 0 minutes  4.551 seconds)
+**Total running time of the script:** ( 0 minutes  4.609 seconds)
 
 
 

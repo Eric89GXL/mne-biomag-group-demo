@@ -3,8 +3,9 @@
 .. _sphx_glr_auto_scripts_12-make_forward.py:
 
 
-Forward solution
-================
+====================
+12. Forward solution
+====================
 
 Calculate forward solution for MEG channels.
 

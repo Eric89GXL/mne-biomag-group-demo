@@ -197,7 +197,7 @@ Next, the linear scale to check power line frequency
 
 
 
-**Total running time of the script:** ( 0 minutes  3.465 seconds)
+**Total running time of the script:** ( 0 minutes  3.424 seconds)
 
 
 

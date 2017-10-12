@@ -3,9 +3,9 @@
 .. _sphx_glr_auto_scripts_05-run_ica.py:
 
 
-=======
-Run ICA
-=======
+===========
+05. Run ICA
+===========
 
 ICA decomposition using fastICA.
 

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Group analysis &#8212; MNE Biomag Demo</title>
+    <title>Group grand averages &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
@@ -76,7 +76,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Group analysis</a></li>
+<li><a class="reference internal" href="#">Group grand averages</a></li>
 </ul>
 </ul>
 </li>
@@ -108,10 +108,12 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="group-analysis">
-<span id="sphx-glr-auto-examples-group-analysis-plot-group-py"></span><h1>Group analysis<a class="headerlink" href="#group-analysis" title="Permalink to this headline">¶</a></h1>
-<p>Run the group analysis.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
+  <div class="section" id="group-grand-averages">
+<span id="sphx-glr-auto-examples-group-analysis-plot-group-py"></span><h1>Group grand averages<a class="headerlink" href="#group-grand-averages" title="Permalink to this headline">¶</a></h1>
+<p>Grand-average group contrasts for sensor space, dSPM, and LCMV.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># sphinx_gallery_thumbnail_number = 1</span>
+
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -126,7 +128,7 @@
                            <span class="s1">&#39;grand_average_highpass-</span><span class="si">%s</span><span class="s1">Hz-ave.fif&#39;</span> <span class="o">%</span> <span class="n">l_freq</span><span class="p">))[:</span><span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Sensor-space. See <a class="reference internal" href="../../auto_scripts/11-group_average_sensors.html#sphx-glr-auto-scripts-11-group-average-sensors-py"><span class="std std-ref">Group average at the sensor level</span></a>
+<p>Sensor-space. See <a class="reference internal" href="../../auto_scripts/11-group_average_sensors.html#sphx-glr-auto-scripts-11-group-average-sensors-py"><span class="std std-ref">11. Group average at the sensor level</span></a>
 We use the same sensor EEG065 as in Wakeman et al.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">evokeds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ch_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;EEG065&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">evokeds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ch_names</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EEG065&#39;</span>
@@ -169,13 +171,14 @@ publication ready graph.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_group_001.png" class="align-center" src="../../_images/sphx_glr_plot_group_001.png" />
-<p>Source-space. See <a class="reference internal" href="../../auto_scripts/14-group_average_source.html#sphx-glr-auto-scripts-14-group-average-source-py"><span class="std std-ref">Group average on source level</span></a></p>
+<p>Source-space. See <a class="reference internal" href="../../auto_scripts/14-group_average_source.html#sphx-glr-auto-scripts-14-group-average-source-py"><span class="std std-ref">14. Group average on source level</span></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="s1">&#39;contrast-average&#39;</span><span class="p">)</span>
 <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_source_estimate.html#mne.read_source_estimate" title="View documentation for mne.read_source_estimate"><span class="n">mne</span><span class="o">.</span><span class="n">read_source_estimate</span></a><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span>
 
 <span class="n">brain</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">views</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ven&#39;</span><span class="p">],</span> <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
                  <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">initial_time</span><span class="o">=</span><span class="mf">0.17</span><span class="p">,</span> <span class="n">time_unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
-                 <span class="n">figure</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)))</span>
+                 <span class="n">figure</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)),</span>
+                 <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_group_002.png" class="align-center" src="../../_images/sphx_glr_plot_group_002.png" />
@@ -185,11 +188,12 @@ publication ready graph.</p>
 
 <span class="n">brain</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">views</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ven&#39;</span><span class="p">],</span> <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
                  <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">initial_time</span><span class="o">=</span><span class="mf">0.17</span><span class="p">,</span> <span class="n">time_unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span>
-                 <span class="n">figure</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)))</span>
+                 <span class="n">figure</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)),</span>
+                 <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_group_003.png" class="align-center" src="../../_images/sphx_glr_plot_group_003.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  4.551 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  4.609 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_group.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_group.py</span></code></a></div>

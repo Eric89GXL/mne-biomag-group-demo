@@ -302,7 +302,7 @@ Covariance :ref:`sphx_glr_auto_scripts_07-make_evoked.py`.
 
 
 
-**Total running time of the script:** ( 0 minutes  20.863 seconds)
+**Total running time of the script:** ( 0 minutes  20.295 seconds)
 
 
 

@@ -3,8 +3,9 @@
 .. _sphx_glr_auto_scripts_08-make_cov.py:
 
 
-Baseline covariance
-===================
+==================================
+08. Baseline covariance estimation
+==================================
 
 Covariance matrices are computed and saved.
 

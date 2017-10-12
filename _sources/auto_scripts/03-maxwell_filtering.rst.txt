@@ -3,9 +3,9 @@
 .. _sphx_glr_auto_scripts_03-maxwell_filtering.py:
 
 
-===============================
-Maxwell filter using MNE-python
-===============================
+===================================
+03. Maxwell filter using MNE-python
+===================================
 
 The data are Maxwell filtered using tSSS and movement compensation.
 

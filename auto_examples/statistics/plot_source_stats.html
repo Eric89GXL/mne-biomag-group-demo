@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Source space clusters &#8212; MNE Biomag Demo</title>
+    <title>Spatio-temporal source-space statistics (MEG) &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
@@ -76,7 +76,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Source space clusters</a></li>
+<li><a class="reference internal" href="#">Spatio-temporal source-space statistics (MEG)</a></li>
 </ul>
 </ul>
 </li>
@@ -108,8 +108,8 @@
   <div class="row">
     <div class="col-md-12 content">
       
-  <div class="section" id="source-space-clusters">
-<span id="sphx-glr-auto-examples-statistics-plot-source-stats-py"></span><h1>Source space clusters<a class="headerlink" href="#source-space-clusters" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spatio-temporal-source-space-statistics-meg">
+<span id="sphx-glr-auto-examples-statistics-plot-source-stats-py"></span><h1>Spatio-temporal source-space statistics (MEG)<a class="headerlink" href="#spatio-temporal-source-space-statistics-meg" title="Permalink to this headline">¶</a></h1>
 <p>Clustering in source space.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
@@ -206,12 +206,13 @@ simplicity we’ll do 1024.</p>
 <span class="n">brain</span> <span class="o">=</span> <span class="n">stc_all_cluster_vis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span>
     <span class="n">time_label</span><span class="o">=</span><span class="s1">&#39;Duration significant (ms)&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">=</span><span class="s1">&#39;ven&#39;</span><span class="p">,</span>
-    <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">lims</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+    <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">lims</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
 <span class="n">brain</span><span class="o">.</span><span class="n">save_image</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;source_stats.png&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_source_stats_001.png" class="align-center" src="../../_images/sphx_glr_plot_source_stats_001.png" />
-<p><strong>Total running time of the script:</strong> ( 5 minutes  53.903 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 5 minutes  52.913 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_source_stats.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_source_stats.py</span></code></a></div>
