@@ -138,8 +138,8 @@
 </pre></div>
 </div>
 <p>Filtering <a class="reference internal" href="../../auto_scripts/04-python_filtering.html#sphx-glr-auto-scripts-04-python-filtering-py"><span class="std std-ref">04. Filter using MNE-python</span></a>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">n_fft</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">raw_filt</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">n_fft</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">n_fft</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">raw_filt</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span><span class="n">n_fft</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
@@ -228,7 +228,7 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 </li>
 </ul>
 <p>ICA</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ica_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;run_01-ica.fif&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ica_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;run_concat-ica.fif&#39;</span><span class="p">)</span>
 <span class="n">ica</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.read_ica.html#mne.preprocessing.read_ica" title="View documentation for mne.preprocessing.read_ica"><span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span></a><span class="p">(</span><span class="n">ica_fname</span><span class="p">)</span>
 <span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
@@ -270,7 +270,7 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
                     <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-cov.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">))</span>
 <span class="n">cov</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_cov.html#mne.read_cov" title="View documentation for mne.read_cov"><span class="n">mne</span><span class="o">.</span><span class="n">read_cov</span></a><span class="p">(</span><span class="n">cov_fname</span><span class="p">)</span>
 <a href="https://mne-tools.github.io/dev/generated/mne.viz.plot_cov.html#mne.viz.plot_cov" title="View documentation for mne.viz.plot_cov"><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_cov</span></a><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
-<span class="n">faces_evo</span><span class="o">.</span><span class="n">plot_white</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+<span class="n">faces_evo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span><span class="o">.</span><span class="n">plot_white</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
@@ -326,7 +326,7 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_analysis_09_026.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_09_026.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  49.568 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  36.429 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_analysis_09.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_analysis_09.py</span></code></a></div>

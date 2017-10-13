@@ -3,9 +3,9 @@
 .. _sphx_glr_auto_examples_statistics_plot_sliding_estimator.py:
 
 
-=================================
-Decoding (ML) across time (M/EEG)
-=================================
+===============================
+Decoding (ML) across time (MEG)
+===============================
 
 A sliding estimator fits a logistic regression model for every time point.
 In this example, we contrast the condition `'famous'` vs `'scrambled'`
@@ -150,7 +150,7 @@ due to bad subjects:
 
 
 
-**Total running time of the script:** ( 0 minutes  0.731 seconds)
+**Total running time of the script:** ( 0 minutes  0.727 seconds)
 
 
 
