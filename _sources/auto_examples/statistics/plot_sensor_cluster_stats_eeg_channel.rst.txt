@@ -61,7 +61,8 @@ Read all the data
 
     channel = 'EEG065'
     idx = contrast.ch_names.index(channel)
-    mne.viz.plot_compare_evokeds(contrast, [idx], show_sensors=4)
+    mne.viz.plot_compare_evokeds(contrast, [idx], show_sensors=4,
+                                 truncate_xaxis=False)
 
 
 
@@ -185,7 +186,7 @@ Visualize results
 
 
 
-**Total running time of the script:** ( 0 minutes  6.213 seconds)
+**Total running time of the script:** ( 0 minutes  6.024 seconds)
 
 
 
