@@ -63,12 +63,11 @@ Next, we get the list of bad channels
 
     mapping = map_subjects[subject_id]
     bads = list()
-    bad_name = op.join(op.dirname(sys.argv[0]), '..', 'processing',
-                       'bads', mapping, 'run_%02d_raw_tr.fif_bad' % run)
-    if os.path.exists(bad_name):
-        with open(bad_name) as f:
-            for line in f:
-                bads.append(line.strip())
+    bad_name = op.join('..', '..', 'processing', 'bads', mapping,
+                       'run_%02d_raw_tr.fif_bad' % run)
+    with open(bad_name) as f:
+        for line in f:
+            bads.append(line.strip())
 
 
 
@@ -160,21 +159,7 @@ First we show the log scale to spot bad sensors.
         else:
             l.set_zorder(4)
 
-
-
-
-.. image:: /auto_examples/demos/images/sphx_glr_plot_psd_001.png
-    :align: center
-
-
-
-
-Next, the linear scale to check power line frequency
-
-
-
-.. code-block:: python
-
+    # Next, the linear scale to check power line frequency
 
     ax = axes[1]
     raw.plot_psd(
@@ -194,10 +179,13 @@ Next, the linear scale to check power line frequency
 
 
 
+.. image:: /auto_examples/demos/images/sphx_glr_plot_psd_001.png
+    :align: center
 
 
 
-**Total running time of the script:** ( 0 minutes  3.424 seconds)
+
+**Total running time of the script:** ( 0 minutes  5.090 seconds)
 
 
 

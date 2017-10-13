@@ -139,7 +139,7 @@ Now let's get to some serious ICA preprocessing
 
 
 
-**Total running time of the script:** ( 0 minutes  11.938 seconds)
+**Total running time of the script:** ( 0 minutes  11.671 seconds)
 
 
 

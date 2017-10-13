@@ -140,12 +140,11 @@ used to conveniently spot bad sensors.</p>
 <p>Next, we get the list of bad channels</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mapping</span> <span class="o">=</span> <span class="n">map_subjects</span><span class="p">[</span><span class="n">subject_id</span><span class="p">]</span>
 <span class="n">bads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="n">bad_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;bads&#39;</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span> <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">_raw_tr.fif_bad&#39;</span> <span class="o">%</span> <span class="n">run</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bad_name</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bad_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">bads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+<span class="n">bad_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">,</span> <span class="s1">&#39;bads&#39;</span><span class="p">,</span> <span class="n">mapping</span><span class="p">,</span>
+                   <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">_raw_tr.fif_bad&#39;</span> <span class="o">%</span> <span class="n">run</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bad_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">bads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>and set the EOG/ECG channels appropriately</p>
@@ -192,11 +191,10 @@ we remove it from the info and show only the HPI coil frequencies.</p>
         <span class="n">l</span><span class="o">.</span><span class="n">set_zorder</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">l</span><span class="o">.</span><span class="n">set_zorder</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-<img alt="../../_images/sphx_glr_plot_psd_001.png" class="align-center" src="../../_images/sphx_glr_plot_psd_001.png" />
-<p>Next, the linear scale to check power line frequency</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Next, the linear scale to check power line frequency</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">raw</span><span class="o">.</span><span class="n">plot_psd</span><span class="p">(</span>
     <span class="n">average</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">line_alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">n_overlap</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">fmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">fmax</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">spatial_colors</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="p">[</span><span class="n">ax</span><span class="p">])</span>
@@ -213,7 +211,8 @@ we remove it from the info and show only the HPI coil frequencies.</p>
 <a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="View documentation for matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  3.424 seconds)</p>
+<img alt="../../_images/sphx_glr_plot_psd_001.png" class="align-center" src="../../_images/sphx_glr_plot_psd_001.png" />
+<p><strong>Total running time of the script:</strong> ( 0 minutes  5.090 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_psd.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_psd.py</span></code></a></div>

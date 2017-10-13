@@ -44,7 +44,7 @@ contrast = mne.combine_evoked(contrasts, 'equal')
 
 channel = 'EEG065'
 idx = contrast.ch_names.index(channel)
-mne.viz.plot_compare_evokeds(contrast, [idx])
+mne.viz.plot_compare_evokeds(contrast, [idx], show_sensors=4)
 
 ##############################################################################
 # Assemble the data and run the cluster stats on channel data
