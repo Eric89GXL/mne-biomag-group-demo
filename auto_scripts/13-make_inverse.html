@@ -132,8 +132,8 @@
                         <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-cov.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">))</span>
     <span class="n">fname_fwd</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-meg-eeg-</span><span class="si">%s</span><span class="s1">-fwd.fif&#39;</span>
                         <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">spacing</span><span class="p">))</span>
-    <span class="n">fname_inv</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-meg-eeg-</span><span class="si">%s</span><span class="s1">-inv.fif&#39;</span>
-                        <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">spacing</span><span class="p">))</span>
+    <span class="n">fname_inv</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-meg-eeg-</span><span class="si">%s</span><span class="s1">-inv.fif&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">spacing</span><span class="p">))</span>
 
     <span class="n">evokeds</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span>
         <span class="n">fname_ave</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scrambled&#39;</span><span class="p">,</span> <span class="s1">&#39;unfamiliar&#39;</span><span class="p">,</span> <span class="s1">&#39;famous&#39;</span><span class="p">,</span>
@@ -156,7 +156,8 @@
     <span class="k">for</span> <span class="n">evoked</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="p">:</span>
         <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.apply_inverse.html#mne.minimum_norm.apply_inverse" title="View documentation for mne.minimum_norm.apply_inverse"><span class="n">apply_inverse</span></a><span class="p">(</span><span class="n">evoked</span><span class="p">,</span> <span class="n">inverse_operator</span><span class="p">,</span> <span class="n">lambda2</span><span class="p">,</span> <span class="s2">&quot;dSPM&quot;</span><span class="p">,</span>
                             <span class="n">pick_ori</span><span class="o">=</span><span class="s1">&#39;vector&#39;</span><span class="p">)</span>
-        <span class="n">stc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">evoked</span><span class="o">.</span><span class="n">comment</span><span class="p">))</span>
+        <span class="n">stc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_highpass-</span><span class="si">%s</span><span class="s1">Hz-</span><span class="si">%s</span><span class="s1">&#39;</span>
+                         <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,</span> <span class="n">evoked</span><span class="o">.</span><span class="n">comment</span><span class="p">)))</span>
 
 
 <span class="n">parallel</span><span class="p">,</span> <span class="n">run_func</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">run_inverse</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">)</span>
@@ -185,7 +186,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-13.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

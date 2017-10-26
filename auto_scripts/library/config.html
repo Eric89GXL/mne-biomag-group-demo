@@ -175,7 +175,9 @@ are placed in the same folder.</p>
 <span class="n">ylim</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;eeg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;mag&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span> <span class="s1">&#39;grad&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">]}</span>
 
 
-<span class="k">def</span> <span class="nf">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">set_matplotlib_defaults</span><span class="p">(</span><a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="View documentation for matplotlib.pyplot"><span class="n">plt</span></a><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">):</span>
+    <span class="k">if</span> <a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="View documentation for matplotlib.pyplot"><span class="n">plt</span></a> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
               <span class="s1">&#39;legend.fontsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">,</span>
               <span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">,</span>
@@ -187,10 +189,14 @@ are placed in the same folder.</p>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fontsize</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;text.fontsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fontsize</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="View documentation for matplotlib.pyplot"><span class="n">plt</span></a><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 
 
-<span class="n">l_freq</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">l_freq</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="n">tmin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span>
+<span class="n">tmax</span> <span class="o">=</span> <span class="mf">2.9</span>  <span class="c1"># min duration between onsets: (400 fix + 800 stim + 1700 ISI) ms</span>
+<span class="n">reject_tmax</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1"># duration we really care about</span>
 
 <span class="n">smooth</span> <span class="o">=</span> <span class="mi">10</span>
 
@@ -219,7 +225,7 @@ are placed in the same folder.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-13.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

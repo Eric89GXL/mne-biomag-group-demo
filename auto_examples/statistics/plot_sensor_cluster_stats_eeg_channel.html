@@ -139,8 +139,8 @@ on the contrast faces vs. scrambled.</p>
     <span class="n">contrast</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-ave.fif&#39;</span>
                                         <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)),</span>
                                 <span class="n">condition</span><span class="o">=</span><span class="s1">&#39;contrast&#39;</span><span class="p">)</span>
+    <span class="n">contrast</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
     <span class="n">contrast</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">contrast</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
     <span class="n">contrasts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contrast</span><span class="p">)</span>
 
 <span class="n">contrast</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.combine_evoked.html#mne.combine_evoked" title="View documentation for mne.combine_evoked"><span class="n">mne</span><span class="o">.</span><span class="n">combine_evoked</span></a><span class="p">(</span><span class="n">contrasts</span><span class="p">,</span> <span class="s1">&#39;equal&#39;</span><span class="p">)</span>
@@ -180,7 +180,7 @@ on the contrast faces vs. scrambled.</p>
 <span class="n">p_initial</span> <span class="o">=</span> <span class="mf">0.001</span>
 
 <span class="c1"># set family-wise p-value</span>
-<span class="n">p_thresh</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">p_thresh</span> <span class="o">=</span> <span class="mf">0.01</span>
 
 <span class="n">connectivity</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">tail</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># for two sided test</span>
@@ -200,12 +200,12 @@ on the contrast faces vs. scrambled.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">stat_fun</span><span class="p">(</span><span class="n">H1</span><span class="p">):</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">8.256638</span> <span class="nb">max</span><span class="o">=</span><span class="mf">5.366143</span>
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">stat_fun</span><span class="p">(</span><span class="n">H1</span><span class="p">):</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">7.826097</span> <span class="nb">max</span><span class="o">=</span><span class="mf">2.466821</span>
 <span class="n">Running</span> <span class="n">initial</span> <span class="n">clustering</span>
-<span class="n">Found</span> <span class="mi">4</span> <span class="n">clusters</span>
+<span class="n">Found</span> <span class="mi">2</span> <span class="n">clusters</span>
 <span class="n">Permuting</span> <span class="mi">999</span> <span class="n">times</span><span class="o">...</span>
 <span class="n">Computing</span> <span class="n">cluster</span> <span class="n">p</span><span class="o">-</span><span class="n">values</span>
-<span class="n">Step</span><span class="o">-</span><span class="n">down</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">jumps</span> <span class="n">iteration</span> <span class="c1">#1 found 4 clusters to exclude from subsequent iterations</span>
+<span class="n">Step</span><span class="o">-</span><span class="n">down</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">jumps</span> <span class="n">iteration</span> <span class="c1">#1 found 2 clusters to exclude from subsequent iterations</span>
 <span class="n">Permuting</span> <span class="mi">999</span> <span class="n">times</span><span class="o">...</span>
 <span class="n">Computing</span> <span class="n">cluster</span> <span class="n">p</span><span class="o">-</span><span class="n">values</span>
 <span class="n">Step</span><span class="o">-</span><span class="n">down</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">jumps</span> <span class="n">iteration</span> <span class="c1">#2 found 0 additional clusters to exclude from subsequent iterations</span>
@@ -213,7 +213,7 @@ on the contrast faces vs. scrambled.</p>
 </pre></div>
 </div>
 <p>Visualize results</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">set_matplotlib_defaults</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="View documentation for matplotlib.pyplot"><span class="n">plt</span></a><span class="p">)</span>
 
 <span class="n">times</span> <span class="o">=</span> <span class="mf">1e3</span> <span class="o">*</span> <span class="n">contrast</span><span class="o">.</span><span class="n">times</span>
 
@@ -233,14 +233,15 @@ on the contrast faces vs. scrambled.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="n">h1</span><span class="p">,),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;p &lt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">p_thresh</span><span class="p">,),</span>
           <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;time (ms)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;T-values&quot;</span><span class="p">,</span>
-       <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">],</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">800</span><span class="p">])</span>
+       <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">],</span> <span class="n">xlim</span><span class="o">=</span><span class="n">contrast</span><span class="o">.</span><span class="n">times</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;sensorstat.pdf&#39;</span><span class="p">),</span> <span class="n">bbox_to_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;sensorstat_highpass-</span><span class="si">%s</span><span class="s1">Hz.pdf&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,)),</span> <span class="n">bbox_to_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 <a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="View documentation for matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_sensor_cluster_stats_eeg_channel_002.png" class="align-center" src="../../_images/sphx_glr_plot_sensor_cluster_stats_eeg_channel_002.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  6.269 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  7.003 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_sensor_cluster_stats_eeg_channel.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_sensor_cluster_stats_eeg_channel.py</span></code></a></div>
@@ -262,7 +263,7 @@ on the contrast faces vs. scrambled.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-13.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

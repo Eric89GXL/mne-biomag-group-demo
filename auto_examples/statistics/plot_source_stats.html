@@ -125,7 +125,7 @@
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="p">,</span> <span class="n">fsaverage_vertices</span><span class="p">,</span>
-                            <span class="n">exclude_subjects</span><span class="p">,</span> <span class="n">N_JOBS</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
+                            <span class="n">exclude_subjects</span><span class="p">,</span> <span class="n">N_JOBS</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
 
 <span class="n">faces</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="n">scrambled</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
@@ -136,11 +136,13 @@
     <span class="k">print</span><span class="p">(</span><span class="s2">&quot;processing subject: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
     <span class="n">data_path</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
     <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_source_estimate.html#mne.read_source_estimate" title="View documentation for mne.read_source_estimate"><span class="n">mne</span><span class="o">.</span><span class="n">read_source_estimate</span></a><span class="p">(</span>
-        <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_morph-faces_eq&#39;</span><span class="p">))</span>
-    <span class="n">faces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stc</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_morph_highpass-</span><span class="si">%s</span><span class="s1">Hz-faces_eq&#39;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,)))</span>
+    <span class="n">faces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stc</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_source_estimate.html#mne.read_source_estimate" title="View documentation for mne.read_source_estimate"><span class="n">mne</span><span class="o">.</span><span class="n">read_source_estimate</span></a><span class="p">(</span>
-        <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_morph-scrambled_eq&#39;</span><span class="p">))</span>
-    <span class="n">scrambled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stc</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_morph_highpass-</span><span class="si">%s</span><span class="s1">Hz-scrambled_eq&#39;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,)))</span>
+    <span class="n">scrambled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stc</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="n">tstep</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">tstep</span>
 </pre></div>
 </div>
@@ -181,7 +183,8 @@ simplicity we’ll do 1024.</p>
 <span class="n">T_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_p_values</span><span class="p">,</span> <span class="n">H0</span> <span class="o">=</span> <span class="n">clu</span> <span class="o">=</span> \
     <a href="https://mne-tools.github.io/dev/generated/mne.stats.spatio_temporal_cluster_1samp_test.html#mne.stats.spatio_temporal_cluster_1samp_test" title="View documentation for mne.stats.spatio_temporal_cluster_1samp_test"><span class="n">spatio_temporal_cluster_1samp_test</span></a><span class="p">(</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">t_threshold</span><span class="p">,</span>
-        <span class="n">stat_fun</span><span class="o">=</span><span class="n">stat_fun</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">stat_fun</span><span class="o">=</span><span class="n">stat_fun</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">step_down_p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="n">good_cluster_inds</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.where.html#numpy.where" title="View documentation for numpy.where"><span class="n">np</span><span class="o">.</span><span class="n">where</span></a><span class="p">(</span><span class="n">cluster_p_values</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">good_cluster_inds</span><span class="p">:</span>
@@ -189,30 +192,38 @@ simplicity we’ll do 1024.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">stat_fun</span><span class="p">(</span><span class="n">H1</span><span class="p">):</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">7.495973</span> <span class="nb">max</span><span class="o">=</span><span class="mf">8.439950</span>
+<div class="sphx-glr-script-out highlight-default"><div class="highlight"><pre><span></span><span class="n">stat_fun</span><span class="p">(</span><span class="n">H1</span><span class="p">):</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">6.130262</span> <span class="nb">max</span><span class="o">=</span><span class="mf">10.031127</span>
 <span class="n">Running</span> <span class="n">initial</span> <span class="n">clustering</span>
-<span class="n">Found</span> <span class="mi">744</span> <span class="n">clusters</span>
+<span class="n">Found</span> <span class="mi">668</span> <span class="n">clusters</span>
 <span class="n">Permuting</span> <span class="mi">1023</span> <span class="n">times</span><span class="o">...</span>
 <span class="n">Computing</span> <span class="n">cluster</span> <span class="n">p</span><span class="o">-</span><span class="n">values</span>
+<span class="n">Step</span><span class="o">-</span><span class="n">down</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">jumps</span> <span class="n">iteration</span> <span class="c1">#1 found 5 clusters to exclude from subsequent iterations</span>
+<span class="n">Permuting</span> <span class="mi">1023</span> <span class="n">times</span><span class="o">...</span>
+<span class="n">Computing</span> <span class="n">cluster</span> <span class="n">p</span><span class="o">-</span><span class="n">values</span>
+<span class="n">Step</span><span class="o">-</span><span class="n">down</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">jumps</span> <span class="n">iteration</span> <span class="c1">#2 found 0 additional clusters to exclude from subsequent iterations</span>
 <span class="n">Done</span><span class="o">.</span>
-<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0273438</span>
-<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0117188</span>
+<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0224609</span>
+<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0234375</span>
+<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0302734</span>
+<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0126953</span>
+<span class="n">Found</span> <span class="n">cluster</span> <span class="k">with</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.0263672</span>
 </pre></div>
 </div>
 <p>Visualize the results:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">stc_all_cluster_vis</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.stats.summarize_clusters_stc.html#mne.stats.summarize_clusters_stc" title="View documentation for mne.stats.summarize_clusters_stc"><span class="n">summarize_clusters_stc</span></a><span class="p">(</span>
     <span class="n">clu</span><span class="p">,</span> <span class="n">tstep</span><span class="o">=</span><span class="n">tstep</span><span class="p">,</span> <span class="n">vertices</span><span class="o">=</span><span class="n">fsaverage_vertices</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
-
+<span class="n">pos_lims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span> <span class="k">if</span> <span class="n">l_freq</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="mi">30</span><span class="p">]</span>
 <span class="n">brain</span> <span class="o">=</span> <span class="n">stc_all_cluster_vis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span>
     <span class="n">time_label</span><span class="o">=</span><span class="s1">&#39;Duration significant (ms)&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">=</span><span class="s1">&#39;ven&#39;</span><span class="p">,</span>
-    <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">pos_lims</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="n">clim</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">pos_lims</span><span class="o">=</span><span class="n">pos_lims</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
     <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">foreground</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">brain</span><span class="o">.</span><span class="n">save_image</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;source_stats.png&#39;</span><span class="p">))</span>
+<span class="n">brain</span><span class="o">.</span><span class="n">save_image</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;source_stats_highpass-</span><span class="si">%s</span><span class="s1">Hz.png&#39;</span>
+                         <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,)))</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_source_stats_001.png" class="align-center" src="../../_images/sphx_glr_plot_source_stats_001.png" />
-<p><strong>Total running time of the script:</strong> ( 5 minutes  54.739 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 15 minutes  36.039 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_source_stats.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_source_stats.py</span></code></a></div>
@@ -234,7 +245,7 @@ simplicity we’ll do 1024.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-13.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

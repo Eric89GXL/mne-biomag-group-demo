@@ -21,9 +21,10 @@ morphed to average brain,
     import mne
 
     from library.config import (subjects_dir, meg_dir, exclude_subjects, smooth,
-                                fsaverage_vertices)
-    stcs = list()
+                                fsaverage_vertices, l_freq)
 
+
+    stcs = list()
     for subject_id in range(1, 20):
         if subject_id in exclude_subjects:
             continue
@@ -32,7 +33,8 @@ morphed to average brain,
         data_path = op.join(meg_dir, subject)
 
         stc = mne.read_source_estimate(
-            op.join(data_path, 'mne_LCMV_inverse-contrast'), subject)
+            op.join(data_path, 'mne_LCMV_inverse_highpass-%sHz-contrast' % l_freq),
+            subject)
         morph_mat = mne.compute_morph_matrix(
             subject, 'fsaverage', stc.vertices, fsaverage_vertices, smooth,
             subjects_dir=subjects_dir, warn=False)
@@ -41,7 +43,7 @@ morphed to average brain,
 
     data = np.average([s.data for s in stcs], axis=0)
     stc = mne.SourceEstimate(data, stcs[0].vertices, stcs[0].tmin, stcs[0].tstep)
-    stc.save(op.join(meg_dir, 'contrast-average-lcmv'))
+    stc.save(op.join(meg_dir, 'contrast-average-lcmv_highpass-%sHz' % l_freq))
 
 **Total running time of the script:** ( 0 minutes  0.000 seconds)
 

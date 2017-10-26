@@ -147,8 +147,9 @@ The contrast across different sensors are combined into a single plot.</p>
                                     <span class="n">epochs</span><span class="p">[</span><span class="n">condition2</span><span class="p">]])</span>
     <span class="n">epochs</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span>
 
-    <span class="c1"># Let us restrict ourselves to the MEG channels</span>
-    <span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># Let us restrict ourselves to the MEG channels, and also decimate to</span>
+    <span class="c1"># make it faster (although we might miss some detail / alias)</span>
+    <span class="n">epochs</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">decimate</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
 
     <span class="c1"># Get the data and labels</span>
     <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
@@ -165,8 +166,8 @@ The contrast across different sensors are combined into a single plot.</p>
     <span class="c1"># let&#39;s save the scores now</span>
     <span class="n">a_vs_b</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_vs_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">condition1</span><span class="p">),</span>
                            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">condition2</span><span class="p">))</span>
-    <span class="n">fname_td</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-td-auc-</span><span class="si">%s</span><span class="s1">.mat&#39;</span>
-                            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">a_vs_b</span><span class="p">))</span>
+    <span class="n">fname_td</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-td-auc-</span><span class="si">%s</span><span class="s1">.mat&#39;</span>
+                            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">a_vs_b</span><span class="p">))</span>
     <a href="http://scipy.github.io/devdocs/generated/scipy.io.savemat.html#scipy.io.savemat" title="View documentation for scipy.io.savemat"><span class="n">savemat</span></a><span class="p">(</span><span class="n">fname_td</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;scores&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">:</span> <span class="n">epochs</span><span class="o">.</span><span class="n">times</span><span class="p">})</span>
 
 
@@ -201,7 +202,7 @@ The contrast across different sensors are combined into a single plot.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-13.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

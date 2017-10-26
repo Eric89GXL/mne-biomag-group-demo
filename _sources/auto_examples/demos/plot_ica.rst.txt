@@ -136,10 +136,135 @@ Now let's get to some serious ICA preprocessing
       .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_003.png
             :scale: 47
 
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_004.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_005.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_006.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_007.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_008.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_009.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_010.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_011.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_012.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_013.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_014.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_015.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_016.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_017.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_018.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_019.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_020.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_021.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_022.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_023.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_024.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_025.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_026.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_027.png
+            :scale: 47
+
+    *
+
+      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_028.png
+            :scale: 47
 
 
 
-**Total running time of the script:** ( 0 minutes  10.311 seconds)
+
+**Total running time of the script:** ( 1 minutes  16.725 seconds)
 
 
 

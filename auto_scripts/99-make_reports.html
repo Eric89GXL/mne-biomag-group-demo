@@ -174,7 +174,8 @@ plots.</p>
 
     <span class="n">rep</span><span class="o">.</span><span class="n">add_figs_to_section</span><span class="p">(</span><span class="n">figs</span><span class="p">,</span> <span class="n">captions</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">cond</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;faces&#39;</span><span class="p">,</span> <span class="s1">&#39;famous&#39;</span><span class="p">,</span> <span class="s1">&#39;unfamiliar&#39;</span><span class="p">,</span> <span class="s1">&#39;scrambled&#39;</span><span class="p">,</span> <span class="s1">&#39;contrast&#39;</span><span class="p">]:</span>
-        <span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">cond</span><span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_highpass-</span><span class="si">%s</span><span class="s1">Hz-</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,</span> <span class="n">cond</span><span class="p">))</span>
         <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_source_estimate.html#mne.read_source_estimate" title="View documentation for mne.read_source_estimate"><span class="n">mne</span><span class="o">.</span><span class="n">read_source_estimate</span></a><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
         <span class="n">brain</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">views</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ven&#39;</span><span class="p">],</span> <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
 
@@ -188,7 +189,7 @@ plots.</p>
 
 
 <span class="c1"># Group report</span>
-<span class="n">faces_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="s1">&#39;eeg_faces-ave.fif&#39;</span><span class="p">)</span>
+<span class="n">faces_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="s1">&#39;eeg_faces_highpass-</span><span class="si">%s</span><span class="s1">Hz-ave.fif&#39;</span> <span class="o">%</span> <span class="n">l_freq</span><span class="p">)</span>
 <span class="n">rep</span> <span class="o">=</span> <span class="n">Report</span><span class="p">(</span><span class="n">info_fname</span><span class="o">=</span><span class="n">faces_fname</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
              <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">)</span>
 <span class="n">faces</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span><span class="n">faces_fname</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -199,7 +200,7 @@ plots.</p>
 <span class="n">rep</span><span class="o">.</span><span class="n">add_figs_to_section</span><span class="p">(</span><span class="n">scrambled</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">gfp</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                                        <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span> <span class="s1">&#39;Average scrambled&#39;</span><span class="p">)</span>
 
-<span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="s1">&#39;contrast-average&#39;</span><span class="p">)</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="s1">&#39;contrast-average_highpass-</span><span class="si">%s</span><span class="s1">Hz&#39;</span> <span class="o">%</span> <span class="n">l_freq</span><span class="p">)</span>
 <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_source_estimate.html#mne.read_source_estimate" title="View documentation for mne.read_source_estimate"><span class="n">mne</span><span class="o">.</span><span class="n">read_source_estimate</span></a><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
 <span class="n">brain</span> <span class="o">=</span> <span class="n">stc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">views</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ven&#39;</span><span class="p">],</span> <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
                  <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">)</span>
@@ -234,7 +235,7 @@ plots.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-13.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

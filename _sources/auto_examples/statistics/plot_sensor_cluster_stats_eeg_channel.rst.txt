@@ -53,8 +53,8 @@ Read all the data
         contrast = mne.read_evokeds(op.join(data_path, '%s_highpass-%sHz-ave.fif'
                                             % (subject, l_freq)),
                                     condition='contrast')
+        contrast.apply_baseline((-0.2, 0.0)).crop(None, 0.8)
         contrast.pick_types(meg=False, eeg=True)
-        contrast.apply_baseline((-0.2, 0.0))
         contrasts.append(contrast)
 
     contrast = mne.combine_evoked(contrasts, 'equal')
@@ -108,7 +108,7 @@ Assemble the data and run the cluster stats on channel data
     p_initial = 0.001
 
     # set family-wise p-value
-    p_thresh = 0.05
+    p_thresh = 0.01
 
     connectivity = None
     tail = 0.  # for two sided test
@@ -134,12 +134,12 @@ Assemble the data and run the cluster stats on channel data
 
  Out::
 
-    stat_fun(H1): min=-8.256638 max=5.366143
+    stat_fun(H1): min=-7.826097 max=2.466821
     Running initial clustering
-    Found 4 clusters
+    Found 2 clusters
     Permuting 999 times...
     Computing cluster p-values
-    Step-down-in-jumps iteration #1 found 4 clusters to exclude from subsequent iterations
+    Step-down-in-jumps iteration #1 found 2 clusters to exclude from subsequent iterations
     Permuting 999 times...
     Computing cluster p-values
     Step-down-in-jumps iteration #2 found 0 additional clusters to exclude from subsequent iterations
@@ -173,9 +173,10 @@ Visualize results
     ax.legend((h1,), (u'p < %s' % p_thresh,),
               loc='best', ncol=1, fontsize=14)
     ax.set(xlabel="time (ms)", ylabel="T-values",
-           ylim=[-10., 10.], xlim=[-200, 800])
+           ylim=[-10., 10.], xlim=contrast.times[[0, -1]] * 1000)
     fig.tight_layout()
-    fig.savefig(op.join('..', 'figures', 'sensorstat.pdf'), bbox_to_inches='tight')
+    fig.savefig(op.join('..', 'figures', 'sensorstat_highpass-%sHz.pdf'
+                        % (l_freq,)), bbox_to_inches='tight')
     plt.show()
 
 
@@ -186,7 +187,7 @@ Visualize results
 
 
 
-**Total running time of the script:** ( 0 minutes  6.269 seconds)
+**Total running time of the script:** ( 0 minutes  7.003 seconds)
 
 
 
