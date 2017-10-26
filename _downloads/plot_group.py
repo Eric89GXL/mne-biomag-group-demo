@@ -54,14 +54,14 @@ set_matplotlib_defaults(plt)
 fig, ax = plt.subplots(1, figsize=(7, 5))
 scale = 1e6
 ax.plot(evoked.times * 1000, mapping['Scrambled'].data[idx] * scale,
-        'r', linewidth=2, label='Scrambled', lw=1)
+        'r', linewidth=2, label='Scrambled')
 ax.plot(evoked.times * 1000, mapping['Unfamiliar'].data[idx] * scale,
-        'g', linewidth=2, label='Unfamiliar', lw=1)
+        'g', linewidth=2, label='Unfamiliar')
 ax.plot(evoked.times * 1000, mapping['Famous'].data[idx] * scale, 'b',
-        linewidth=2, label='Famous', lw=1)
+        linewidth=2, label='Famous')
 ax.grid(True)
 ax.set(xlim=[-100, 1000 * tmax], xlabel='Time (in ms after stimulus onset)',
-       ylabel=u'Potential difference (μV)')
+       ylim=[-12.5, 5], ylabel=u'Potential difference (μV)')
 ax.axvline(700, ls='--', color='k')
 ax.legend()
 fig.tight_layout()

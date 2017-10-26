@@ -263,7 +263,7 @@ Some simple demos with the data.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Show analysis of tSSS data. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Run the analysis. ">
 
 .. only:: html
 

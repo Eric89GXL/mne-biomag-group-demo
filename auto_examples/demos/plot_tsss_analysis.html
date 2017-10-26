@@ -110,16 +110,20 @@
       
   <div class="section" id="analysis-for-one-subject-with-tsss">
 <span id="sphx-glr-auto-examples-demos-plot-tsss-analysis-py"></span><h1>Analysis for one subject with tSSS<a class="headerlink" href="#analysis-for-one-subject-with-tsss" title="Permalink to this headline">¶</a></h1>
-<p>Show analysis of tSSS data.</p>
+<p>Run the analysis.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 <span class="kn">import</span> <span class="nn">mne</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="n">study_path</span><span class="p">,</span> <span class="n">meg_dir</span><span class="p">,</span> <span class="n">ylim</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">study_path</span><span class="p">,</span> <span class="n">meg_dir</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span>
+                            <span class="n">set_matplotlib_defaults</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
+
+<span class="n">set_matplotlib_defaults</span><span class="p">(</span><a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.html#module-matplotlib.pyplot" title="View documentation for matplotlib.pyplot"><span class="n">plt</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p>Configuration</p>
@@ -227,23 +231,76 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 <li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_013.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_013.png" src="../../_images/sphx_glr_plot_tsss_analysis_013.png" style="width: 775.5px; height: 126.89999999999999px;" /></a>
 </li>
 </ul>
+<p>ICA (ECG)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ica_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;run_concat-tsss_</span><span class="si">%d</span><span class="s1">-ica.fif&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">st_duration</span><span class="p">,))</span>
+<span class="n">ica</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.read_ica.html#mne.preprocessing.read_ica" title="View documentation for mne.preprocessing.read_ica"><span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span></a><span class="p">(</span><span class="n">ica_fname</span><span class="p">)</span>
+
+<span class="n">ecg_scores</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.load.html#numpy.load" title="View documentation for numpy.load"><span class="n">np</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-tsss_</span><span class="si">%d</span><span class="s1">-ecg-scores.npy&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">st_duration</span><span class="p">)))</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">ecg_scores</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ICA ECG scores&#39;</span><span class="p">)</span>
+<span class="n">ecg_evoked</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-tsss_</span><span class="si">%d</span><span class="s1">-ecg-ave.fif&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">st_duration</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">ecg_evoked</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ECG evoked&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_014.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_014.png" src="../../_images/sphx_glr_plot_tsss_analysis_014.png" style="width: 300.79999999999995px; height: 126.89999999999999px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_015.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_015.png" src="../../_images/sphx_glr_plot_tsss_analysis_015.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+</li>
+</ul>
+<p>ICA (EOG)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">eog_scores</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.load.html#numpy.load" title="View documentation for numpy.load"><span class="n">np</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-tsss_</span><span class="si">%d</span><span class="s1">-eog-scores.npy&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">st_duration</span><span class="p">)))</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">eog_scores</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ICA EOG scores&#39;</span><span class="p">)</span>
+<span class="n">eog_evoked</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-tsss_</span><span class="si">%d</span><span class="s1">-eog-ave.fif&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">st_duration</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">eog_evoked</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;EOG evoked&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_016.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_016.png" src="../../_images/sphx_glr_plot_tsss_analysis_016.png" style="width: 300.79999999999995px; height: 253.79999999999998px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_017.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_017.png" src="../../_images/sphx_glr_plot_tsss_analysis_017.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+</li>
+</ul>
 <p>Covariance <a class="reference internal" href="../../auto_scripts/07-make_evoked.html#sphx-glr-auto-scripts-07-make-evoked-py"><span class="std std-ref">07. Evoked data</span></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cov_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span>
                     <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-tsss_</span><span class="si">%d</span><span class="s1">-cov.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">st_duration</span><span class="p">))</span>
 <span class="n">cov</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_cov.html#mne.read_cov" title="View documentation for mne.read_cov"><span class="n">mne</span><span class="o">.</span><span class="n">read_cov</span></a><span class="p">(</span><span class="n">cov_fname</span><span class="p">)</span>
 <a href="https://mne-tools.github.io/dev/generated/mne.viz.plot_cov.html#mne.viz.plot_cov" title="View documentation for mne.viz.plot_cov"><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_cov</span></a><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
-<span class="n">faces_evo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span><span class="o">.</span><span class="n">plot_white</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+<span class="n">rank_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">meg</span><span class="o">=</span><span class="n">raw_filt</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">estimate_rank</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;meg&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">):</span>
+    <span class="n">type_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">type_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">kind</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">type_dict</span><span class="p">)</span><span class="o">.</span><span class="n">plot_white</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank_dict</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;meg&#39;</span> <span class="k">else</span> <span class="p">{})</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ylabel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Whitened</span><span class="se">\n</span><span class="si">%s</span><span class="s1"> (AU)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">kind</span><span class="o">.</span><span class="n">upper</span><span class="p">(),),</span>
+                                     <span class="s1">&#39;GFP ($\chi^2$)&#39;</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-tsss_</span><span class="si">%d</span><span class="s1">-plot_white_</span><span class="si">%s</span><span class="s1">.pdf&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">st_duration</span><span class="p">,</span> <span class="n">kind</span><span class="p">)))</span>
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_014.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_014.png" src="../../_images/sphx_glr_plot_tsss_analysis_014.png" style="width: 352.5px; height: 126.89999999999999px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_018.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_018.png" src="../../_images/sphx_glr_plot_tsss_analysis_018.png" style="width: 352.5px; height: 126.89999999999999px;" /></a>
 </li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_015.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_015.png" src="../../_images/sphx_glr_plot_tsss_analysis_015.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_019.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_019.png" src="../../_images/sphx_glr_plot_tsss_analysis_019.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
 </li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_016.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_016.png" src="../../_images/sphx_glr_plot_tsss_analysis_016.png" style="width: 413.59999999999997px; height: 310.2px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_020.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_020.png" src="../../_images/sphx_glr_plot_tsss_analysis_020.png" style="width: 413.59999999999997px; height: 206.79999999999998px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_tsss_analysis_021.png"><img alt="../../_images/sphx_glr_plot_tsss_analysis_021.png" src="../../_images/sphx_glr_plot_tsss_analysis_021.png" style="width: 413.59999999999997px; height: 206.79999999999998px;" /></a>
 </li>
 </ul>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  36.787 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  32.189 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_tsss_analysis.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_tsss_analysis.py</span></code></a></div>
@@ -265,7 +322,7 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-26.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

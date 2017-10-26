@@ -176,11 +176,11 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ave_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span>
                     <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-ave.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">))</span>
 <span class="n">evoked</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span><span class="n">ave_fname</span><span class="p">)</span>
+<span class="n">famous_evo</span><span class="p">,</span> <span class="n">scrambled_evo</span><span class="p">,</span> <span class="n">unfamiliar_evo</span><span class="p">,</span> <span class="n">contrast_evo</span><span class="p">,</span> <span class="n">faces_evo</span> <span class="o">=</span> <span class="n">evoked</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Faces</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">famous_evo</span><span class="p">,</span> <span class="n">scrambled_evo</span><span class="p">,</span> <span class="n">unfamiliar_evo</span><span class="p">,</span> <span class="n">contrast_evo</span><span class="p">,</span> <span class="n">faces_evo</span> <span class="o">=</span> <span class="n">evoked</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-<span class="n">faces_evo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">gfp</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">faces_evo</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spatial_colors</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">gfp</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span>
                <span class="n">window_title</span><span class="o">=</span><span class="s1">&#39;Faces </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -231,13 +231,75 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 <li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_013.png"><img alt="../../_images/sphx_glr_plot_analysis_08_013.png" src="../../_images/sphx_glr_plot_analysis_08_013.png" style="width: 775.5px; height: 126.89999999999999px;" /></a>
 </li>
 </ul>
-<p>ICA</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ica_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;run_concat-ica.fif&#39;</span><span class="p">)</span>
+<p>ICA (ECG)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ica_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;run_concat_highpass-</span><span class="si">%s</span><span class="s1">Hz-ica.fif&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,))</span>
 <span class="n">ica</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.read_ica.html#mne.preprocessing.read_ica" title="View documentation for mne.preprocessing.read_ica"><span class="n">mne</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">read_ica</span></a><span class="p">(</span><span class="n">ica_fname</span><span class="p">)</span>
-<span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">raw_filt</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">ecg_scores</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.load.html#numpy.load" title="View documentation for numpy.load"><span class="n">np</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-ecg-scores.npy&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)))</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">ecg_scores</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ICA ECG scores&#39;</span><span class="p">)</span>
+<span class="n">ecg_evoked</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-ecg-ave.fif&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">ecg_evoked</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ECG evoked&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_analysis_08_014.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_014.png" />
+<ul class="sphx-glr-horizontal">
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_014.png"><img alt="../../_images/sphx_glr_plot_analysis_08_014.png" src="../../_images/sphx_glr_plot_analysis_08_014.png" style="width: 300.79999999999995px; height: 126.89999999999999px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_015.png"><img alt="../../_images/sphx_glr_plot_analysis_08_015.png" src="../../_images/sphx_glr_plot_analysis_08_015.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+</li>
+</ul>
+<p>ICA (EOG)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">eog_scores</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.load.html#numpy.load" title="View documentation for numpy.load"><span class="n">np</span><span class="o">.</span><span class="n">load</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-eog-scores.npy&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)))</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">eog_scores</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ICA EOG scores&#39;</span><span class="p">)</span>
+<span class="n">eog_evoked</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-eog-ave.fif&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">eog_evoked</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;EOG evoked&#39;</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_016.png"><img alt="../../_images/sphx_glr_plot_analysis_08_016.png" src="../../_images/sphx_glr_plot_analysis_08_016.png" style="width: 300.79999999999995px; height: 253.79999999999998px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_017.png"><img alt="../../_images/sphx_glr_plot_analysis_08_017.png" src="../../_images/sphx_glr_plot_analysis_08_017.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+</li>
+</ul>
+<p>Covariance <a class="reference internal" href="../../auto_scripts/07-make_evoked.html#sphx-glr-auto-scripts-07-make-evoked-py"><span class="std std-ref">07. Evoked data</span></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cov_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span>
+                    <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-cov.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">))</span>
+<span class="n">cov</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_cov.html#mne.read_cov" title="View documentation for mne.read_cov"><span class="n">mne</span><span class="o">.</span><span class="n">read_cov</span></a><span class="p">(</span><span class="n">cov_fname</span><span class="p">)</span>
+<a href="https://mne-tools.github.io/dev/generated/mne.viz.plot_cov.html#mne.viz.plot_cov" title="View documentation for mne.viz.plot_cov"><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_cov</span></a><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
+<span class="n">rank_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">meg</span><span class="o">=</span><span class="n">raw_filt</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">estimate_rank</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;meg&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">):</span>
+    <span class="n">type_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">type_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">kind</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">type_dict</span><span class="p">)</span><span class="o">.</span><span class="n">plot_white</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank_dict</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;meg&#39;</span> <span class="k">else</span> <span class="p">{})</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ylabel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Whitened</span><span class="se">\n</span><span class="si">%s</span><span class="s1"> (AU)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">kind</span><span class="o">.</span><span class="n">upper</span><span class="p">(),),</span>
+                                     <span class="s1">&#39;GFP ($\chi^2$)&#39;</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-plot_white_</span><span class="si">%s</span><span class="s1">.pdf&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">kind</span><span class="p">)))</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_018.png"><img alt="../../_images/sphx_glr_plot_analysis_08_018.png" src="../../_images/sphx_glr_plot_analysis_08_018.png" style="width: 352.5px; height: 126.89999999999999px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_019.png"><img alt="../../_images/sphx_glr_plot_analysis_08_019.png" src="../../_images/sphx_glr_plot_analysis_08_019.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_020.png"><img alt="../../_images/sphx_glr_plot_analysis_08_020.png" src="../../_images/sphx_glr_plot_analysis_08_020.png" style="width: 413.59999999999997px; height: 206.79999999999998px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_021.png"><img alt="../../_images/sphx_glr_plot_analysis_08_021.png" src="../../_images/sphx_glr_plot_analysis_08_021.png" style="width: 413.59999999999997px; height: 206.79999999999998px;" /></a>
+</li>
+</ul>
 <p>TFR <a class="reference internal" href="../../auto_scripts/09-time_frequency.html#sphx-glr-auto-scripts-09-time-frequency-py"><span class="std std-ref">09. Time-frequency decomposition</span></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">fpower</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.time_frequency.read_tfrs.html#mne.time_frequency.read_tfrs" title="View documentation for mne.time_frequency.read_tfrs"><span class="n">mne</span><span class="o">.</span><span class="n">time_frequency</span><span class="o">.</span><span class="n">read_tfrs</span></a><span class="p">(</span>
     <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-faces-tfr.h5&#39;</span>
@@ -264,44 +326,13 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 </pre></div>
 </div>
 <ul class="sphx-glr-horizontal">
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_015.png"><img alt="../../_images/sphx_glr_plot_analysis_08_015.png" src="../../_images/sphx_glr_plot_analysis_08_015.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_022.png"><img alt="../../_images/sphx_glr_plot_analysis_08_022.png" src="../../_images/sphx_glr_plot_analysis_08_022.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
 </li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_016.png"><img alt="../../_images/sphx_glr_plot_analysis_08_016.png" src="../../_images/sphx_glr_plot_analysis_08_016.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_023.png"><img alt="../../_images/sphx_glr_plot_analysis_08_023.png" src="../../_images/sphx_glr_plot_analysis_08_023.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
 </li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_017.png"><img alt="../../_images/sphx_glr_plot_analysis_08_017.png" src="../../_images/sphx_glr_plot_analysis_08_017.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_024.png"><img alt="../../_images/sphx_glr_plot_analysis_08_024.png" src="../../_images/sphx_glr_plot_analysis_08_024.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
 </li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_018.png"><img alt="../../_images/sphx_glr_plot_analysis_08_018.png" src="../../_images/sphx_glr_plot_analysis_08_018.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
-</li>
-</ul>
-<p>Covariance <a class="reference internal" href="../../auto_scripts/07-make_evoked.html#sphx-glr-auto-scripts-07-make-evoked-py"><span class="std std-ref">07. Evoked data</span></a>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cov_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span>
-                    <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-cov.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">))</span>
-<span class="n">cov</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_cov.html#mne.read_cov" title="View documentation for mne.read_cov"><span class="n">mne</span><span class="o">.</span><span class="n">read_cov</span></a><span class="p">(</span><span class="n">cov_fname</span><span class="p">)</span>
-<a href="https://mne-tools.github.io/dev/generated/mne.viz.plot_cov.html#mne.viz.plot_cov" title="View documentation for mne.viz.plot_cov"><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_cov</span></a><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
-<span class="n">rank_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-    <span class="n">meg</span><span class="o">=</span><span class="n">raw_filt</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">estimate_rank</span><span class="p">())</span>
-<span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;meg&#39;</span><span class="p">,</span> <span class="s1">&#39;eeg&#39;</span><span class="p">):</span>
-    <span class="n">type_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">meg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">type_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">kind</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">faces_evo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span>
-        <span class="o">**</span><span class="n">type_dict</span><span class="p">)</span><span class="o">.</span><span class="n">plot_white</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank_dict</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;meg&#39;</span> <span class="k">else</span> <span class="p">{})</span>
-    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ylabel</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Whitened</span><span class="se">\n</span><span class="si">%s</span><span class="s1"> (AU)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">kind</span><span class="o">.</span><span class="n">upper</span><span class="p">(),),</span>
-                                     <span class="s1">&#39;GFP ($\chi^2$)&#39;</span><span class="p">)):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_plot_white_</span><span class="si">%s</span><span class="s1">.pdf&#39;</span>
-                        <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">kind</span><span class="p">)))</span>
-</pre></div>
-</div>
-<ul class="sphx-glr-horizontal">
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_019.png"><img alt="../../_images/sphx_glr_plot_analysis_08_019.png" src="../../_images/sphx_glr_plot_analysis_08_019.png" style="width: 352.5px; height: 126.89999999999999px;" /></a>
-</li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_020.png"><img alt="../../_images/sphx_glr_plot_analysis_08_020.png" src="../../_images/sphx_glr_plot_analysis_08_020.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
-</li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_021.png"><img alt="../../_images/sphx_glr_plot_analysis_08_021.png" src="../../_images/sphx_glr_plot_analysis_08_021.png" style="width: 413.59999999999997px; height: 206.79999999999998px;" /></a>
-</li>
-<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_022.png"><img alt="../../_images/sphx_glr_plot_analysis_08_022.png" src="../../_images/sphx_glr_plot_analysis_08_022.png" style="width: 413.59999999999997px; height: 206.79999999999998px;" /></a>
+<li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_analysis_08_025.png"><img alt="../../_images/sphx_glr_plot_analysis_08_025.png" src="../../_images/sphx_glr_plot_analysis_08_025.png" style="width: 300.79999999999995px; height: 225.6px;" /></a>
 </li>
 </ul>
 <p>Trans</p>
@@ -330,7 +361,7 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
             <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">get_facecolor</span><span class="p">(),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_analysis_08_023.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_023.png" />
+<img alt="../../_images/sphx_glr_plot_analysis_08_026.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_026.png" />
 <p>Faces <a class="reference internal" href="../../auto_scripts/13-make_inverse.html#sphx-glr-auto-scripts-13-make-inverse-py"><span class="std std-ref">13. Inverse solution</span></a>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_stc</span><span class="p">(</span><span class="n">cond</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_highpass-</span><span class="si">%s</span><span class="s1">Hz-</span><span class="si">%s</span><span class="s1">&#39;</span>
@@ -345,12 +376,12 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
 <span class="n">brain_faces</span> <span class="o">=</span> <span class="n">plot_stc</span><span class="p">(</span><span class="s1">&#39;faces&#39;</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_analysis_08_024.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_024.png" />
+<img alt="../../_images/sphx_glr_plot_analysis_08_027.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_027.png" />
 <p>Faces - scrambled</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">brain_contrast</span> <span class="o">=</span> <span class="n">plot_stc</span><span class="p">(</span><span class="s1">&#39;contrast&#39;</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_analysis_08_025.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_025.png" />
+<img alt="../../_images/sphx_glr_plot_analysis_08_028.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_028.png" />
 <p>LCMV Faces - scrambled</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject_dir</span><span class="p">,</span> <span class="s1">&#39;mne_LCMV_inverse_highpass-</span><span class="si">%s</span><span class="s1">Hz-contrast&#39;</span>
                 <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,))</span>
@@ -359,14 +390,14 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
          <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">initial_time</span><span class="o">=</span><span class="mf">0.17</span><span class="p">,</span> <span class="n">time_unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_analysis_08_026.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_026.png" />
+<img alt="../../_images/sphx_glr_plot_analysis_08_029.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_029.png" />
 <p>BEM</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.viz.plot_bem.html#mne.viz.plot_bem" title="View documentation for mne.viz.plot_bem"><span class="n">mne</span><span class="o">.</span><span class="n">viz</span><span class="o">.</span><span class="n">plot_bem</span></a><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">180</span><span class="p">])</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_bem.pdf&#39;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">))</span>
 </pre></div>
 </div>
-<img alt="../../_images/sphx_glr_plot_analysis_08_027.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_027.png" />
-<p><strong>Total running time of the script:</strong> ( 1 minutes  0.628 seconds)</p>
+<img alt="../../_images/sphx_glr_plot_analysis_08_030.png" class="align-center" src="../../_images/sphx_glr_plot_analysis_08_030.png" />
+<p><strong>Total running time of the script:</strong> ( 0 minutes  52.371 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_analysis_08.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_analysis_08.py</span></code></a></div>
@@ -388,7 +419,7 @@ Epochs <a class="reference internal" href="../../auto_scripts/06-make_epochs.htm
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-25.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-26.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
