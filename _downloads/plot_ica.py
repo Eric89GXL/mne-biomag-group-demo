@@ -1,21 +1,23 @@
 """
-====================
-Remove ECG using ICA
-====================
+============================
+Remove ECG and EOG using ICA
+============================
 
-Remove ECG for sub005 using ICA.
+Remove physiological artifacts for sub005 using ICA.
 """
 import os
 import os.path as op
 import sys
 
 import mne
-from mne.preprocessing import create_ecg_epochs, read_ica
+from mne.preprocessing import create_ecg_epochs, create_eog_epochs, read_ica
 
 sys.path.append(op.join('..', '..', 'processing'))
-from library.config import meg_dir, map_subjects, l_freq  # noqa: E402
+from library.config import (meg_dir, map_subjects, l_freq,
+                            set_matplotlib_defaults)  # noqa: E402
 
-subject_id, run = 5, 1
+set_matplotlib_defaults()
+subject_id, run = 3, 1
 subject = "sub%03d" % subject_id
 print("processing subject: %s" % subject)
 
@@ -61,10 +63,9 @@ ica.plot_sources(raw)
 # Now let's find ECG events and score ICA components:
 
 n_max_ecg = 3  # use max 3 components
-ecg_epochs = create_ecg_epochs(raw, tmin=-.1, tmax=.1)
+ecg_epochs = create_ecg_epochs(raw, tmin=-.3, tmax=.3)
 ecg_epochs.decimate(5).apply_baseline((None, None))
-ecg_inds, scores_ecg = ica.find_bads_ecg(ecg_epochs, method='ctps',
-                                         threshold=0.8)
+ecg_inds, scores_ecg = ica.find_bads_ecg(ecg_epochs, method='ctps')
 print('Found %d ECG component(s)' % (len(ecg_inds),))
 ica.exclude += ecg_inds[:n_max_ecg]
 ica.plot_scores(scores_ecg, exclude=ecg_inds, title='ECG scores')
@@ -75,6 +76,11 @@ ica.plot_scores(scores_ecg, exclude=ecg_inds, title='ECG scores')
 ica.plot_sources(ecg_epochs.average(), title='ECG average')
 
 ###############################################################################
+# Then look at what gets removed:
+
+ica.plot_overlay(ecg_epochs.average())
+
+###############################################################################
 # We can also examine the properties of these ECG sources:
 
 ica.plot_properties(raw, ecg_inds[:n_max_ecg])
@@ -82,8 +88,8 @@ ica.plot_properties(raw, ecg_inds[:n_max_ecg])
 ###############################################################################
 # Now do the same for EOG:
 
-n_max_eog = 2  # use max 3 components
-eog_epochs = create_ecg_epochs(raw, tmin=-.5, tmax=.5)
+n_max_eog = 3  # use max 3 components
+eog_epochs = create_eog_epochs(raw, tmin=-.5, tmax=.5)
 eog_epochs.decimate(5).apply_baseline((None, None))
 eog_inds, scores_eog = ica.find_bads_eog(eog_epochs)
 print('Found %d EOG component(s)' % (len(eog_inds),))
@@ -96,5 +102,10 @@ ica.plot_scores(scores_ecg, exclude=eog_inds, title='EOG scores')
 ica.plot_sources(eog_epochs.average(), title='EOG average')
 
 ###############################################################################
-# And look at the properties of these EOG sources:
+# Look at what gets removed:
+
+ica.plot_overlay(eog_epochs.average())
+
+###############################################################################
+# Look at the properties of these EOG sources:
 ica.plot_properties(raw, eog_inds[:n_max_eog])

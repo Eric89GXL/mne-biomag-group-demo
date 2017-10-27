@@ -203,7 +203,7 @@ Some simple demos with the data.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Remove ECG for sub005 using ICA. ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Remove physiological artifacts for sub005 using ICA. ">
 
 .. only:: html
 

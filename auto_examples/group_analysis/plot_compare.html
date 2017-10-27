@@ -125,7 +125,10 @@
 <span class="kn">import</span> <span class="nn">mne</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="n">meg_dir</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">l_freq</span>  <span class="c1"># noqa: E402</span>
+<span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span>
+                            <span class="n">set_matplotlib_defaults</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
+
+<span class="n">set_matplotlib_defaults</span><span class="p">()</span>
 
 <span class="n">evokeds</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">subject_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
@@ -852,7 +855,7 @@
 <li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_compare_342.png"><img alt="../../_images/sphx_glr_plot_compare_342.png" src="../../_images/sphx_glr_plot_compare_342.png" style="width: 564.0px; height: 126.89999999999999px;" /></a>
 </li>
 </ul>
-<p><strong>Total running time of the script:</strong> ( 2 minutes  36.461 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 2 minutes  53.469 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_compare.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_compare.py</span></code></a></div>
@@ -874,7 +877,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-26.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-27.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
