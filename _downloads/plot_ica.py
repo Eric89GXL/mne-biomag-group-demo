@@ -49,16 +49,52 @@ raw.interpolate_bads()
 raw.set_eeg_reference(projection=True)
 
 ###############################################################################
-# Now let's get to some serious ICA preprocessing
+# Now let's get to ICA preprocessing. Let's look at our ICA sources on raw:
 
-ica_name = op.join(meg_dir, subject, 'run_%02d-ica.fif' % run)
+ica_name = op.join(meg_dir, subject, 'run_concat_highpass-%sHz-ica.fif'
+                   % (l_freq,))
 ica = read_ica(ica_name)
+ica.exclude = []
+ica.plot_sources(raw)
+
+###############################################################################
+# Now let's find ECG events and score ICA components:
+
 n_max_ecg = 3  # use max 3 components
-ecg_epochs = create_ecg_epochs(raw, tmin=-.5, tmax=.5)
-ecg_epochs.decimate(11, verbose='error')
+ecg_epochs = create_ecg_epochs(raw, tmin=-.1, tmax=.1)
+ecg_epochs.decimate(5).apply_baseline((None, None))
 ecg_inds, scores_ecg = ica.find_bads_ecg(ecg_epochs, method='ctps',
                                          threshold=0.8)
-ica.plot_sources(raw, exclude=ecg_inds)
-ica.plot_scores(scores_ecg, exclude=ecg_inds)
-ica.plot_properties(raw, ecg_inds)
+print('Found %d ECG component(s)' % (len(ecg_inds),))
 ica.exclude += ecg_inds[:n_max_ecg]
+ica.plot_scores(scores_ecg, exclude=ecg_inds, title='ECG scores')
+
+###############################################################################
+# Let's look at how these sources impact the ECG epochs:
+
+ica.plot_sources(ecg_epochs.average(), title='ECG average')
+
+###############################################################################
+# We can also examine the properties of these ECG sources:
+
+ica.plot_properties(raw, ecg_inds[:n_max_ecg])
+
+###############################################################################
+# Now do the same for EOG:
+
+n_max_eog = 2  # use max 3 components
+eog_epochs = create_ecg_epochs(raw, tmin=-.5, tmax=.5)
+eog_epochs.decimate(5).apply_baseline((None, None))
+eog_inds, scores_eog = ica.find_bads_eog(eog_epochs)
+print('Found %d EOG component(s)' % (len(eog_inds),))
+ica.exclude += eog_inds[:n_max_eog]
+ica.plot_scores(scores_ecg, exclude=eog_inds, title='EOG scores')
+
+###############################################################################
+# Again look at the impact of these sources on the EOG epochs:
+
+ica.plot_sources(eog_epochs.average(), title='EOG average')
+
+###############################################################################
+# And look at the properties of these EOG sources:
+ica.plot_properties(raw, eog_inds[:n_max_eog])

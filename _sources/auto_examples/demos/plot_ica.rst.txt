@@ -97,59 +97,153 @@ Bad sensors are repaired.
 
 
 
-Now let's get to some serious ICA preprocessing
+Now let's get to ICA preprocessing. Let's look at our ICA sources on raw:
 
 
 
 .. code-block:: python
 
 
-    ica_name = op.join(meg_dir, subject, 'run_%02d-ica.fif' % run)
+    ica_name = op.join(meg_dir, subject, 'run_concat_highpass-%sHz-ica.fif'
+                       % (l_freq,))
     ica = read_ica(ica_name)
+    ica.exclude = []
+    ica.plot_sources(raw)
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_ica_001.png
+    :align: center
+
+
+
+
+Now let's find ECG events and score ICA components:
+
+
+
+.. code-block:: python
+
+
     n_max_ecg = 3  # use max 3 components
-    ecg_epochs = create_ecg_epochs(raw, tmin=-.5, tmax=.5)
-    ecg_epochs.decimate(11, verbose='error')
+    ecg_epochs = create_ecg_epochs(raw, tmin=-.1, tmax=.1)
+    ecg_epochs.decimate(5).apply_baseline((None, None))
     ecg_inds, scores_ecg = ica.find_bads_ecg(ecg_epochs, method='ctps',
                                              threshold=0.8)
-    ica.plot_sources(raw, exclude=ecg_inds)
-    ica.plot_scores(scores_ecg, exclude=ecg_inds)
-    ica.plot_properties(raw, ecg_inds)
+    print('Found %d ECG component(s)' % (len(ecg_inds),))
     ica.exclude += ecg_inds[:n_max_ecg]
+    ica.plot_scores(scores_ecg, exclude=ecg_inds, title='ECG scores')
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_ica_002.png
+    :align: center
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    Found 1 ECG component(s)
+
+
+Let's look at how these sources impact the ECG epochs:
+
+
+
+.. code-block:: python
+
+
+    ica.plot_sources(ecg_epochs.average(), title='ECG average')
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_ica_003.png
+    :align: center
+
+
+
+
+We can also examine the properties of these ECG sources:
+
+
+
+.. code-block:: python
+
+
+    ica.plot_properties(raw, ecg_inds[:n_max_ecg])
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_ica_004.png
+    :align: center
+
+
+
+
+Now do the same for EOG:
+
+
+
+.. code-block:: python
+
+
+    n_max_eog = 2  # use max 3 components
+    eog_epochs = create_ecg_epochs(raw, tmin=-.5, tmax=.5)
+    eog_epochs.decimate(5).apply_baseline((None, None))
+    eog_inds, scores_eog = ica.find_bads_eog(eog_epochs)
+    print('Found %d EOG component(s)' % (len(eog_inds),))
+    ica.exclude += eog_inds[:n_max_eog]
+    ica.plot_scores(scores_ecg, exclude=eog_inds, title='EOG scores')
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_ica_005.png
+    :align: center
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    Found 3 EOG component(s)
+
+
+Again look at the impact of these sources on the EOG epochs:
+
+
+
+.. code-block:: python
+
+
+    ica.plot_sources(eog_epochs.average(), title='EOG average')
+
+
+
+
+.. image:: /auto_examples/demos/images/sphx_glr_plot_ica_006.png
+    :align: center
+
+
+
+
+And look at the properties of these EOG sources:
+
+
+
+.. code-block:: python
+
+    ica.plot_properties(raw, eog_inds[:n_max_eog])
 
 
 
 .. rst-class:: sphx-glr-horizontal
 
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_001.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_002.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_003.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_004.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_005.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_006.png
-            :scale: 47
 
     *
 
@@ -161,110 +255,10 @@ Now let's get to some serious ICA preprocessing
       .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_008.png
             :scale: 47
 
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_009.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_010.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_011.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_012.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_013.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_014.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_015.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_016.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_017.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_018.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_019.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_020.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_021.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_022.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_023.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_024.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_025.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_026.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_027.png
-            :scale: 47
-
-    *
-
-      .. image:: /auto_examples/demos/images/sphx_glr_plot_ica_028.png
-            :scale: 47
 
 
 
-
-**Total running time of the script:** ( 1 minutes  10.305 seconds)
+**Total running time of the script:** ( 0 minutes  27.837 seconds)
 
 
 

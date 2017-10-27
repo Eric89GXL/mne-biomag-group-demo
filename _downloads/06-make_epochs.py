@@ -124,7 +124,7 @@ def run_epochs(subject_id, tsss=False):
     print('    Found %d ECG indices' % (len(ecg_inds),))
     ica.exclude.extend(ecg_inds[:n_max_ecg])
 
-    n_max_eog = 3  # use max 3 components
+    n_max_eog = 2  # use max 2 components
     eog_epochs = create_eog_epochs(raw, tmin=-.5, tmax=.5)
     eog_epochs.apply_baseline((None, None))
     eog_epochs.decimate(5)
