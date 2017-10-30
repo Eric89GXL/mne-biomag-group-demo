@@ -217,7 +217,7 @@ Now do the same for EOG:
     eog_inds, scores_eog = ica.find_bads_eog(eog_epochs)
     print('Found %d EOG component(s)' % (len(eog_inds),))
     ica.exclude += eog_inds[:n_max_eog]
-    ica.plot_scores(scores_ecg, exclude=eog_inds, title='EOG scores')
+    ica.plot_scores(scores_eog, exclude=eog_inds, title='EOG scores')
 
 
 
@@ -300,7 +300,7 @@ Look at the properties of these EOG sources:
 
 
 
-**Total running time of the script:** ( 0 minutes  34.400 seconds)
+**Total running time of the script:** ( 0 minutes  22.822 seconds)
 
 
 

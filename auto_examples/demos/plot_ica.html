@@ -204,7 +204,7 @@
 <span class="n">eog_inds</span><span class="p">,</span> <span class="n">scores_eog</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">eog_epochs</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">%d</span><span class="s1"> EOG component(s)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">eog_inds</span><span class="p">),))</span>
 <span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">+=</span> <span class="n">eog_inds</span><span class="p">[:</span><span class="n">n_max_eog</span><span class="p">]</span>
-<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">scores_ecg</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="n">eog_inds</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;EOG scores&#39;</span><span class="p">)</span>
+<span class="n">ica</span><span class="o">.</span><span class="n">plot_scores</span><span class="p">(</span><span class="n">scores_eog</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="n">eog_inds</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;EOG scores&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_ica_006.png" class="align-center" src="../../_images/sphx_glr_plot_ica_006.png" />
@@ -234,7 +234,7 @@
 <li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_ica_011.png"><img alt="../../_images/sphx_glr_plot_ica_011.png" src="../../_images/sphx_glr_plot_ica_011.png" style="width: 329.0px; height: 282.0px;" /></a>
 </li>
 </ul>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  34.400 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  22.822 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_ica.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ica.py</span></code></a></div>
@@ -256,7 +256,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-27.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-29.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
