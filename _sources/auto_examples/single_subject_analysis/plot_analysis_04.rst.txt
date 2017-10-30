@@ -595,7 +595,7 @@ BEM
 
 
 
-**Total running time of the script:** ( 0 minutes  54.705 seconds)
+**Total running time of the script:** ( 1 minutes  17.400 seconds)
 
 
 
