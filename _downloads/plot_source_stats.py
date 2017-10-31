@@ -76,7 +76,7 @@ pos_lims = [0, 0.1, 100 if l_freq is None else 30]
 brain = stc_all_cluster_vis.plot(
     hemi='both', subjects_dir=subjects_dir,
     time_label='Duration significant (ms)', views='ven',
-    clim=dict(pos_lims=pos_lims, kind='value'), size=(500, 500),
+    clim=dict(pos_lims=pos_lims, kind='value'), size=(1000, 1000),
     background='white', foreground='black')
-brain.save_image(op.join('..', 'figures', 'source_stats_highpass-%sHz.2.png'
+brain.save_image(op.join('..', 'figures', 'source_stats_highpass-%sHz.png'
                          % (l_freq,)))

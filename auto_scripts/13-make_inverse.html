@@ -2,7 +2,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>13. Inverse solution &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -116,8 +115,8 @@
 
 <span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">from</span> <span class="nn">mne.parallel</span> <span class="kn">import</span> <span class="n">parallel_func</span>
-<span class="kn">from</span> <span class="nn">mne.minimum_norm</span> <span class="kn">import</span> <span class="p">(</span><span class="n">make_inverse_operator</span><span class="p">,</span> <span class="n">apply_inverse</span><span class="p">,</span>
-                              <span class="n">write_inverse_operator</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mne.minimum_norm</span> <span class="kn">import</span> <span class="p">(</span><a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.make_inverse_operator.html#mne.minimum_norm.make_inverse_operator" title="View documentation for mne.minimum_norm.make_inverse_operator"><span class="n">make_inverse_operator</span></a><span class="p">,</span> <a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.apply_inverse.html#mne.minimum_norm.apply_inverse" title="View documentation for mne.minimum_norm.apply_inverse"><span class="n">apply_inverse</span></a><span class="p">,</span>
+                              <a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.write_inverse_operator.html#mne.minimum_norm.write_inverse_operator" title="View documentation for mne.minimum_norm.write_inverse_operator"><span class="n">write_inverse_operator</span></a><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="n">meg_dir</span><span class="p">,</span> <span class="n">spacing</span><span class="p">,</span> <span class="n">N_JOBS</span><span class="p">,</span> <span class="n">l_freq</span>
 
@@ -136,26 +135,26 @@
     <span class="n">fname_inv</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-meg-eeg-</span><span class="si">%s</span><span class="s1">-inv.fif&#39;</span>
                         <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">spacing</span><span class="p">))</span>
 
-    <span class="n">evokeds</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span><span class="p">(</span>
+    <span class="n">evokeds</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span>
         <span class="n">fname_ave</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scrambled&#39;</span><span class="p">,</span> <span class="s1">&#39;unfamiliar&#39;</span><span class="p">,</span> <span class="s1">&#39;famous&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;faces&#39;</span><span class="p">,</span> <span class="s1">&#39;contrast&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;faces_eq&#39;</span><span class="p">,</span> <span class="s1">&#39;scrambled_eq&#39;</span><span class="p">])</span>
-    <span class="n">cov</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_cov</span><span class="p">(</span><span class="n">fname_cov</span><span class="p">)</span>
-    <span class="n">forward</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_forward_solution</span><span class="p">(</span><span class="n">fname_fwd</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_cov.html#mne.read_cov" title="View documentation for mne.read_cov"><span class="n">mne</span><span class="o">.</span><span class="n">read_cov</span></a><span class="p">(</span><span class="n">fname_cov</span><span class="p">)</span>
+    <span class="n">forward</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_forward_solution.html#mne.read_forward_solution" title="View documentation for mne.read_forward_solution"><span class="n">mne</span><span class="o">.</span><span class="n">read_forward_solution</span></a><span class="p">(</span><span class="n">fname_fwd</span><span class="p">)</span>
 
     <span class="c1"># This will be an MEG-only inverse because the 3-layer BEMs are not</span>
     <span class="c1"># reliable, so our forward only has MEG channels.</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">evokeds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span>
-    <span class="n">inverse_operator</span> <span class="o">=</span> <span class="n">make_inverse_operator</span><span class="p">(</span>
+    <span class="n">inverse_operator</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.make_inverse_operator.html#mne.minimum_norm.make_inverse_operator" title="View documentation for mne.minimum_norm.make_inverse_operator"><span class="n">make_inverse_operator</span></a><span class="p">(</span>
         <span class="n">info</span><span class="p">,</span> <span class="n">forward</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">loose</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-    <span class="n">write_inverse_operator</span><span class="p">(</span><span class="n">fname_inv</span><span class="p">,</span> <span class="n">inverse_operator</span><span class="p">)</span>
+    <a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.write_inverse_operator.html#mne.minimum_norm.write_inverse_operator" title="View documentation for mne.minimum_norm.write_inverse_operator"><span class="n">write_inverse_operator</span></a><span class="p">(</span><span class="n">fname_inv</span><span class="p">,</span> <span class="n">inverse_operator</span><span class="p">)</span>
 
     <span class="c1"># Apply inverse</span>
     <span class="n">snr</span> <span class="o">=</span> <span class="mf">3.0</span>
     <span class="n">lambda2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">snr</span> <span class="o">**</span> <span class="mi">2</span>
 
     <span class="k">for</span> <span class="n">evoked</span> <span class="ow">in</span> <span class="n">evokeds</span><span class="p">:</span>
-        <span class="n">stc</span> <span class="o">=</span> <span class="n">apply_inverse</span><span class="p">(</span><span class="n">evoked</span><span class="p">,</span> <span class="n">inverse_operator</span><span class="p">,</span> <span class="n">lambda2</span><span class="p">,</span> <span class="s2">&quot;dSPM&quot;</span><span class="p">,</span>
+        <span class="n">stc</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.minimum_norm.apply_inverse.html#mne.minimum_norm.apply_inverse" title="View documentation for mne.minimum_norm.apply_inverse"><span class="n">apply_inverse</span></a><span class="p">(</span><span class="n">evoked</span><span class="p">,</span> <span class="n">inverse_operator</span><span class="p">,</span> <span class="n">lambda2</span><span class="p">,</span> <span class="s2">&quot;dSPM&quot;</span><span class="p">,</span>
                             <span class="n">pick_ori</span><span class="o">=</span><span class="s1">&#39;vector&#39;</span><span class="p">)</span>
         <span class="n">stc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;mne_dSPM_inverse_highpass-</span><span class="si">%s</span><span class="s1">Hz-</span><span class="si">%s</span><span class="s1">&#39;</span>
                          <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,</span> <span class="n">evoked</span><span class="o">.</span><span class="n">comment</span><span class="p">)))</span>
@@ -166,10 +165,10 @@
 </pre></div>
 </div>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer container">
-<div class="sphx-glr-download container">
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/13-make_inverse.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">13-make_inverse.py</span></code></a></div>
-<div class="sphx-glr-download container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/13-make_inverse.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">13-make_inverse.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -188,7 +187,7 @@
     </p>
     <p>
         &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7+.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

@@ -151,30 +151,20 @@ Visualize the results:
     brain = stc_all_cluster_vis.plot(
         hemi='both', subjects_dir=subjects_dir,
         time_label='Duration significant (ms)', views='ven',
-        clim=dict(pos_lims=pos_lims, kind='value'), size=(500, 500),
+        clim=dict(pos_lims=pos_lims, kind='value'), size=(1000, 1000),
         background='white', foreground='black')
-    brain.save_image(op.join('..', 'figures', 'source_stats_highpass-%sHz.2.png'
+    brain.save_image(op.join('..', 'figures', 'source_stats_highpass-%sHz.png'
                              % (l_freq,)))
 
 
 
-.. code-block:: pytb
-
-    Traceback (most recent call last):
-      File "/mnt/bakraid/larsoner/mne-biomag-group-demo/mne-biomag-group-demo/scripts/results/statistics/plot_source_stats.py", line 80, in <module>
-        background='white', foreground='black')
-      File "/home/larsoner/custombuilds/mne-python/mne/source_estimate.py", line 1462, in plot
-        spacing=spacing)
-      File "/home/larsoner/custombuilds/mne-python/mne/viz/_3d.py", line 1444, in plot_source_estimates
-        spacing=spacing, time_viewer=time_viewer)
-      File "/home/larsoner/custombuilds/mne-python/mne/viz/_3d.py", line 1212, in _plot_mpl_stc
-        "Got %s." % hemi)
-    ValueError: hemi must be 'lh' or 'rh' when using matplotlib. Got both.
+.. image:: /auto_examples/statistics/images/sphx_glr_plot_source_stats_001.png
+    :align: center
 
 
 
 
-**Total running time of the script:** ( 15 minutes  54.694 seconds)
+**Total running time of the script:** ( 15 minutes  32.895 seconds)
 
 
 

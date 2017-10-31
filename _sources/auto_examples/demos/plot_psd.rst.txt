@@ -178,49 +178,13 @@ First we show the log scale to spot bad sensors.
 
 
 
-.. code-block:: pytb
-
-    Traceback (most recent call last):
-      File "/mnt/bakraid/larsoner/mne-biomag-group-demo/mne-biomag-group-demo/scripts/results/demos/plot_psd.py", line 108, in <module>
-        fig.savefig(op.join('..', 'figures', 'psd.pdf'), bbox_to_inches='tight')
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/figure.py", line 1813, in savefig
-        self.canvas.print_figure(fname, **kwargs)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backend_bases.py", line 2258, in print_figure
-        **kwargs)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backends/backend_pdf.py", line 2592, in print_pdf
-        self.figure.draw(renderer)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/artist.py", line 55, in draw_wrapper
-        return draw(artist, renderer, *args, **kwargs)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/figure.py", line 1294, in draw
-        renderer, self, artists, self.suppressComposite)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/image.py", line 138, in _draw_list_compositing_images
-        a.draw(renderer)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/artist.py", line 55, in draw_wrapper
-        return draw(artist, renderer, *args, **kwargs)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/axes/_base.py", line 2401, in draw
-        mimage._draw_list_compositing_images(renderer, self, artists)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/image.py", line 138, in _draw_list_compositing_images
-        a.draw(renderer)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/artist.py", line 55, in draw_wrapper
-        return draw(artist, renderer, *args, **kwargs)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/text.py", line 803, in draw
-        ismath=ismath, mtext=mtext)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backends/backend_pdf.py", line 2148, in draw_text
-        return draw_text_simple()
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backends/backend_pdf.py", line 2078, in draw_text_simple
-        self._setup_textpos(x, y, angle)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backends/backend_pdf.py", line 1851, in _setup_textpos
-        self.file.output(x - oldx, y - oldy, Op.textpos)
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backends/backend_pdf.py", line 626, in output
-        self.write(fill([pdfRepr(x) for x in data]))
-      File "/home/larsoner/.local/lib/python2.7/site-packages/matplotlib-2.0.2+4858.gd02024e98-py2.7-linux-x86_64.egg/matplotlib/backends/backend_pdf.py", line 153, in pdfRepr
-        raise ValueError("Can only output finite numbers in PDF")
-    ValueError: Can only output finite numbers in PDF
+.. image:: /auto_examples/demos/images/sphx_glr_plot_psd_001.png
+    :align: center
 
 
 
 
-**Total running time of the script:** ( 0 minutes  2.798 seconds)
+**Total running time of the script:** ( 0 minutes  5.532 seconds)
 
 
 

@@ -2,7 +2,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Remove ECG and EOG using ICA &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
@@ -117,7 +116,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">import</span> <span class="nn">mne</span>
-<span class="kn">from</span> <span class="nn">mne.preprocessing</span> <span class="kn">import</span> <span class="n">create_ecg_epochs</span><span class="p">,</span> <span class="n">create_eog_epochs</span><span class="p">,</span> <span class="n">read_ica</span>
+<span class="kn">from</span> <span class="nn">mne.preprocessing</span> <span class="kn">import</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.create_ecg_epochs.html#mne.preprocessing.create_ecg_epochs" title="View documentation for mne.preprocessing.create_ecg_epochs"><span class="n">create_ecg_epochs</span></a><span class="p">,</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.create_eog_epochs.html#mne.preprocessing.create_eog_epochs" title="View documentation for mne.preprocessing.create_eog_epochs"><span class="n">create_eog_epochs</span></a><span class="p">,</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.read_ica.html#mne.preprocessing.read_ica" title="View documentation for mne.preprocessing.read_ica"><span class="n">read_ica</span></a>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">map_subjects</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span>
@@ -150,7 +149,7 @@
 <p>We read the data.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">run_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">_filt_sss_highpass-</span><span class="si">%s</span><span class="s1">Hz_raw.fif&#39;</span>
                     <span class="o">%</span> <span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">))</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">run_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="View documentation for mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">run_fname</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Bad sensors are repaired.</p>
@@ -162,7 +161,7 @@
 <p>Now let’s get to ICA preprocessing. Let’s look at our ICA sources on raw:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ica_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="s1">&#39;run_concat_highpass-</span><span class="si">%s</span><span class="s1">Hz-ica.fif&#39;</span>
                    <span class="o">%</span> <span class="p">(</span><span class="n">l_freq</span><span class="p">,))</span>
-<span class="n">ica</span> <span class="o">=</span> <span class="n">read_ica</span><span class="p">(</span><span class="n">ica_name</span><span class="p">)</span>
+<span class="n">ica</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.read_ica.html#mne.preprocessing.read_ica" title="View documentation for mne.preprocessing.read_ica"><span class="n">read_ica</span></a><span class="p">(</span><span class="n">ica_name</span><span class="p">)</span>
 <span class="n">ica</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">ica</span><span class="o">.</span><span class="n">plot_sources</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 </pre></div>
@@ -170,7 +169,7 @@
 <img alt="../../_images/sphx_glr_plot_ica_001.png" class="align-center" src="../../_images/sphx_glr_plot_ica_001.png" />
 <p>Now let’s find ECG events and score ICA components:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">n_max_ecg</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># use max 3 components</span>
-<span class="n">ecg_epochs</span> <span class="o">=</span> <span class="n">create_ecg_epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=-.</span><span class="mi">3</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ecg_epochs</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.create_ecg_epochs.html#mne.preprocessing.create_ecg_epochs" title="View documentation for mne.preprocessing.create_ecg_epochs"><span class="n">create_ecg_epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=-.</span><span class="mi">3</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">ecg_epochs</span><span class="o">.</span><span class="n">decimate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
 <span class="n">ecg_inds</span><span class="p">,</span> <span class="n">scores_ecg</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_ecg</span><span class="p">(</span><span class="n">ecg_epochs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ctps&#39;</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">%d</span><span class="s1"> ECG component(s)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ecg_inds</span><span class="p">),))</span>
@@ -200,7 +199,7 @@
 <img alt="../../_images/sphx_glr_plot_ica_005.png" class="align-center" src="../../_images/sphx_glr_plot_ica_005.png" />
 <p>Now do the same for EOG:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">n_max_eog</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># use max 3 components</span>
-<span class="n">eog_epochs</span> <span class="o">=</span> <span class="n">create_eog_epochs</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">eog_epochs</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.create_eog_epochs.html#mne.preprocessing.create_eog_epochs" title="View documentation for mne.preprocessing.create_eog_epochs"><span class="n">create_eog_epochs</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">eog_epochs</span><span class="o">.</span><span class="n">decimate</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">((</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
 <span class="n">eog_inds</span><span class="p">,</span> <span class="n">scores_eog</span> <span class="o">=</span> <span class="n">ica</span><span class="o">.</span><span class="n">find_bads_eog</span><span class="p">(</span><span class="n">eog_epochs</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Found </span><span class="si">%d</span><span class="s1"> EOG component(s)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">eog_inds</span><span class="p">),))</span>
@@ -235,11 +234,11 @@
 <li><a class="first reference internal image-reference" href="../../_images/sphx_glr_plot_ica_011.png"><img alt="../../_images/sphx_glr_plot_ica_011.png" src="../../_images/sphx_glr_plot_ica_011.png" style="width: 329.0px; height: 282.0px;" /></a>
 </li>
 </ul>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  38.541 seconds)</p>
-<div class="sphx-glr-footer container">
-<div class="sphx-glr-download container">
+<p><strong>Total running time of the script:</strong> ( 0 minutes  32.435 seconds)</p>
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_ica.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ica.py</span></code></a></div>
-<div class="sphx-glr-download container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_ica.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ica.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -258,7 +257,7 @@
     </p>
     <p>
         &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7+.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

@@ -93,7 +93,7 @@ Let's plot the mean AUC score across subjects
 
     set_matplotlib_defaults()
     colors = ['b', 'g']
-    fig, ax = plt.subplots(1, figsize=(2.5, 2.5))
+    fig, ax = plt.subplots(1, figsize=(3.5, 2.5))
     for c, a_vs_b in zip(colors, a_vs_bs):
         ax.plot(times, mean_scores[a_vs_b], c, label=a_vs_b.replace('_', ' '))
         ax.set(xlabel='Time (s)', ylabel='Area under curve (AUC)')
@@ -104,21 +104,15 @@ Let's plot the mean AUC score across subjects
     ax.axvline(0.0, color='k', linestyle='--')
     ax.legend()
     fig.tight_layout()
-    fig.savefig(op.join('..', 'figures', 'time_decoding_highpass-%sHz.png'
-                        % (l_freq,)),
-        dpi=300)
+    fig.savefig(op.join('..', 'figures', 'time_decoding_highpass-%sHz.pdf'
+                        % (l_freq,)), bbox_to_inches='tight')
     plt.show()
-    raise RuntimeError
 
 
 
 
-.. code-block:: pytb
-
-    Traceback (most recent call last):
-      File "/mnt/bakraid/larsoner/mne-biomag-group-demo/mne-biomag-group-demo/scripts/results/statistics/plot_sliding_estimator.py", line 73, in <module>
-        raise RuntimeError
-    RuntimeError
+.. image:: /auto_examples/statistics/images/sphx_glr_plot_sliding_estimator_001.png
+    :align: center
 
 
 
@@ -150,7 +144,15 @@ due to bad subjects:
     fig.subplots_adjust(bottom=0.1, left=0.1, right=0.98, top=0.95)
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.083 seconds)
+
+
+.. image:: /auto_examples/statistics/images/sphx_glr_plot_sliding_estimator_002.png
+    :align: center
+
+
+
+
+**Total running time of the script:** ( 0 minutes  0.888 seconds)
 
 
 

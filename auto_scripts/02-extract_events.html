@@ -2,7 +2,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>02. Extract events from the stimulus channel &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -128,16 +127,16 @@ to the subject’s MEG directory.</p>
     <span class="n">out_path</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
         <span class="n">run_fname</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">in_path</span><span class="p">,</span> <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">_raw.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">run</span><span class="p">,))</span>
-        <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span><span class="p">(</span><span class="n">run_fname</span><span class="p">)</span>
+        <span class="n">raw</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="View documentation for mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">run_fname</span><span class="p">)</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="mi">4096</span> <span class="o">+</span> <span class="mi">256</span>  <span class="c1"># mask for excluding high order bits</span>
-        <span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">stim_channel</span><span class="o">=</span><span class="s1">&#39;STI101&#39;</span><span class="p">,</span>
+        <span class="n">events</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.find_events.html#mne.find_events" title="View documentation for mne.find_events"><span class="n">mne</span><span class="o">.</span><span class="n">find_events</span></a><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">stim_channel</span><span class="o">=</span><span class="s1">&#39;STI101&#39;</span><span class="p">,</span>
                                  <span class="n">consecutive</span><span class="o">=</span><span class="s1">&#39;increasing&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
                                  <span class="n">mask_type</span><span class="o">=</span><span class="s1">&#39;not_and&#39;</span><span class="p">,</span> <span class="n">min_duration</span><span class="o">=</span><span class="mf">0.003</span><span class="p">)</span>
 
         <span class="k">print</span><span class="p">(</span><span class="s2">&quot;  S </span><span class="si">%s</span><span class="s2"> - R </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">run</span><span class="p">))</span>
 
         <span class="n">fname_events</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">-eve.fif&#39;</span> <span class="o">%</span> <span class="n">run</span><span class="p">)</span>
-        <span class="n">mne</span><span class="o">.</span><span class="n">write_events</span><span class="p">(</span><span class="n">fname_events</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
+        <a href="https://mne-tools.github.io/dev/generated/mne.write_events.html#mne.write_events" title="View documentation for mne.write_events"><span class="n">mne</span><span class="o">.</span><span class="n">write_events</span></a><span class="p">(</span><span class="n">fname_events</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
 
 
 <span class="n">parallel</span><span class="p">,</span> <span class="n">run_func</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">run_events</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">)</span>
@@ -145,10 +144,10 @@ to the subject’s MEG directory.</p>
 </pre></div>
 </div>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer container">
-<div class="sphx-glr-download container">
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/02-extract_events.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02-extract_events.py</span></code></a></div>
-<div class="sphx-glr-download container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/02-extract_events.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02-extract_events.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -167,7 +166,7 @@ to the subject’s MEG directory.</p>
     </p>
     <p>
         &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7+.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>

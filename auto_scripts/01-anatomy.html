@@ -2,7 +2,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>01. Run Freesurfer/MNE anatomical pipeline &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -199,12 +198,12 @@ specific steps, then you must delete the resulting files.</p>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/mri/flash/parameter_maps/flash5.mgz&quot;</span>
                      <span class="o">%</span> <span class="p">(</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">)):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Converting flash MRIs&#39;</span><span class="p">)</span>
-        <span class="n">mne</span><span class="o">.</span><span class="n">bem</span><span class="o">.</span><span class="n">convert_flash_mris</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <a href="https://mne-tools.github.io/dev/generated/mne.bem.convert_flash_mris.html#mne.bem.convert_flash_mris" title="View documentation for mne.bem.convert_flash_mris"><span class="n">mne</span><span class="o">.</span><span class="n">bem</span><span class="o">.</span><span class="n">convert_flash_mris</span></a><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">convert</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                    <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/bem/flash/outer_skin.surf&quot;</span>
                      <span class="o">%</span> <span class="p">(</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">)):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Making BEM&#39;</span><span class="p">)</span>
-        <span class="n">mne</span><span class="o">.</span><span class="n">bem</span><span class="o">.</span><span class="n">make_flash_bem</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span>
+        <a href="https://mne-tools.github.io/dev/generated/mne.bem.make_flash_bem.html#mne.bem.make_flash_bem" title="View documentation for mne.bem.make_flash_bem"><span class="n">mne</span><span class="o">.</span><span class="n">bem</span><span class="o">.</span><span class="n">make_flash_bem</span></a><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">,</span>
                                <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">n_layers</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
         <span class="n">extra</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;5120&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_layers</span><span class="p">)</span>
@@ -214,30 +213,30 @@ specific steps, then you must delete the resulting files.</p>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Setting up </span><span class="si">%d</span><span class="s1">-layer BEM&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,))</span>
             <span class="n">conductivity</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.006</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)[:</span><span class="n">n_layers</span><span class="p">]</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">bem_surfaces</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">make_bem_model</span><span class="p">(</span>
+                <span class="n">bem_surfaces</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.make_bem_model.html#mne.make_bem_model" title="View documentation for mne.make_bem_model"><span class="n">mne</span><span class="o">.</span><span class="n">make_bem_model</span></a><span class="p">(</span>
                     <span class="n">subject</span><span class="p">,</span> <span class="n">ico</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">conductivity</span><span class="o">=</span><span class="n">conductivity</span><span class="p">,</span>
                     <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">exp</span><span class="p">:</span>
                 <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  FAILED to create </span><span class="si">%d</span><span class="s1">-layer BEM for </span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span>
                       <span class="o">%</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">exp</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
                 <span class="k">continue</span>
-            <span class="n">mne</span><span class="o">.</span><span class="n">write_bem_surfaces</span><span class="p">(</span><span class="n">fname_bem_surfaces</span><span class="p">,</span> <span class="n">bem_surfaces</span><span class="p">)</span>
+            <a href="https://mne-tools.github.io/dev/generated/mne.write_bem_surfaces.html#mne.write_bem_surfaces" title="View documentation for mne.write_bem_surfaces"><span class="n">mne</span><span class="o">.</span><span class="n">write_bem_surfaces</span></a><span class="p">(</span><span class="n">fname_bem_surfaces</span><span class="p">,</span> <span class="n">bem_surfaces</span><span class="p">)</span>
         <span class="n">fname_bem</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="s1">&#39;bem&#39;</span><span class="p">,</span>
                             <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-</span><span class="si">%s</span><span class="s1">-bem-sol.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">extra</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fname_bem</span><span class="p">):</span>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Computing  </span><span class="si">%d</span><span class="s1">-layer BEM solution&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,))</span>
-            <span class="n">bem_model</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_bem_surfaces</span><span class="p">(</span><span class="n">fname_bem_surfaces</span><span class="p">)</span>
-            <span class="n">bem</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">make_bem_solution</span><span class="p">(</span><span class="n">bem_model</span><span class="p">)</span>
-            <span class="n">mne</span><span class="o">.</span><span class="n">write_bem_solution</span><span class="p">(</span><span class="n">fname_bem</span><span class="p">,</span> <span class="n">bem</span><span class="p">)</span>
+            <span class="n">bem_model</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_bem_surfaces.html#mne.read_bem_surfaces" title="View documentation for mne.read_bem_surfaces"><span class="n">mne</span><span class="o">.</span><span class="n">read_bem_surfaces</span></a><span class="p">(</span><span class="n">fname_bem_surfaces</span><span class="p">)</span>
+            <span class="n">bem</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.make_bem_solution.html#mne.make_bem_solution" title="View documentation for mne.make_bem_solution"><span class="n">mne</span><span class="o">.</span><span class="n">make_bem_solution</span></a><span class="p">(</span><span class="n">bem_model</span><span class="p">)</span>
+            <a href="https://mne-tools.github.io/dev/generated/mne.write_bem_solution.html#mne.write_bem_solution" title="View documentation for mne.write_bem_solution"><span class="n">mne</span><span class="o">.</span><span class="n">write_bem_solution</span></a><span class="p">(</span><span class="n">fname_bem</span><span class="p">,</span> <span class="n">bem</span><span class="p">)</span>
 
     <span class="c1"># Create the surface source space</span>
     <span class="n">fname_src</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="s1">&#39;bem&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-</span><span class="si">%s</span><span class="s1">-src.fif&#39;</span>
                         <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">spacing</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fname_src</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Setting up source space&#39;</span><span class="p">)</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">setup_source_space</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">spacing</span><span class="p">,</span>
+        <span class="n">src</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.setup_source_space.html#mne.setup_source_space" title="View documentation for mne.setup_source_space"><span class="n">mne</span><span class="o">.</span><span class="n">setup_source_space</span></a><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">spacing</span><span class="p">,</span>
                                      <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">)</span>
-        <span class="n">mne</span><span class="o">.</span><span class="n">write_source_spaces</span><span class="p">(</span><span class="n">fname_src</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
+        <a href="https://mne-tools.github.io/dev/generated/mne.write_source_spaces.html#mne.write_source_spaces" title="View documentation for mne.write_source_spaces"><span class="n">mne</span><span class="o">.</span><span class="n">write_source_spaces</span></a><span class="p">(</span><span class="n">fname_src</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
 
 
 <span class="n">parallel</span><span class="p">,</span> <span class="n">run_func</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">process_subject_anat</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">)</span>
@@ -250,18 +249,18 @@ specific steps, then you must delete the resulting files.</p>
 <span class="n">fsaverage_src</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fsaverage_src</span><span class="p">,</span> <span class="s1">&#39;fsaverage-5-src.fif&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fsaverage_src</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Setting up source space for fsaverage&#39;</span><span class="p">)</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">setup_source_space</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="s1">&#39;ico5&#39;</span><span class="p">,</span>
+    <span class="n">src</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.setup_source_space.html#mne.setup_source_space" title="View documentation for mne.setup_source_space"><span class="n">mne</span><span class="o">.</span><span class="n">setup_source_space</span></a><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="s1">&#39;ico5&#39;</span><span class="p">,</span>
                                  <span class="n">subjects_dir</span><span class="o">=</span><span class="n">subjects_dir</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">src</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;vertno&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10242</span><span class="p">))</span>
-    <span class="n">mne</span><span class="o">.</span><span class="n">write_source_spaces</span><span class="p">(</span><span class="n">fsaverage_src</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
+        <span class="k">assert</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.array_equal.html#numpy.array_equal" title="View documentation for numpy.array_equal"><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span></a><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;vertno&#39;</span><span class="p">],</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.arange.html#numpy.arange" title="View documentation for numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mi">10242</span><span class="p">))</span>
+    <a href="https://mne-tools.github.io/dev/generated/mne.write_source_spaces.html#mne.write_source_spaces" title="View documentation for mne.write_source_spaces"><span class="n">mne</span><span class="o">.</span><span class="n">write_source_spaces</span></a><span class="p">(</span><span class="n">fsaverage_src</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer container">
-<div class="sphx-glr-download container">
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/01-anatomy.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01-anatomy.py</span></code></a></div>
-<div class="sphx-glr-download container">
+<div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/01-anatomy.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01-anatomy.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -280,7 +279,7 @@ specific steps, then you must delete the resulting files.</p>
     </p>
     <p>
         &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7+.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
 </footer>
