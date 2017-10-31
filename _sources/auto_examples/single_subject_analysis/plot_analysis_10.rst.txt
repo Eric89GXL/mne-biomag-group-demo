@@ -484,10 +484,11 @@ Trans
                                         '%s-5120-bem.fif' % subject))
     src = mne.read_source_spaces(
         op.join(subjects_dir, subject, 'bem', '%s-oct6-src.fif' % subject))
-    aln = mne.viz.plot_alignment(raw.info, fname_trans, subject=subject,
-                                 subjects_dir=subjects_dir, bem=bem, src=src,
-                                 surfaces='inner_skull', coord_frame='meg')
-    fig, axes = plt.subplots(1, 3, figsize=(10, 3), facecolor='k')
+    aln = mne.viz.plot_alignment(
+        raw.info, fname_trans, subject=subject, subjects_dir=subjects_dir, src=src,
+        surfaces=['outer_skin', 'inner_skull'], dig=True, coord_frame='meg')
+    aln.scene.parallel_projection = True
+    fig, axes = plt.subplots(1, 3, figsize=(6.5, 2.5), facecolor='k')
     from mayavi import mlab  # noqa: E402
     for ai, angle in enumerate((180, 90, 0)):
         mlab.view(angle, 90, focalpoint=(0., 0., 0.), distance=0.6)
@@ -505,8 +506,19 @@ Trans
 
 
 
-.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_10_026.png
-    :align: center
+.. code-block:: pytb
+
+    Traceback (most recent call last):
+      File "/mnt/bakraid/larsoner/mne-biomag-group-demo/mne-biomag-group-demo/scripts/results/single_subject_analysis/plot_analysis_10.py", line 185, in <module>
+        surfaces=['outer_skin', 'inner_skull'], dig=True, coord_frame='meg')
+      File "<string>", line 2, in plot_alignment
+      File "/home/larsoner/custombuilds/mne-python/mne/utils.py", line 728, in verbose
+        return function(*args, **kwargs)
+      File "/home/larsoner/custombuilds/mne-python/mne/viz/_3d.py", line 510, in plot_alignment
+        mlab = _import_mlab()
+      File "/home/larsoner/custombuilds/mne-python/mne/utils.py", line 1145, in _import_mlab
+        from mayavi import mlab
+    ImportError: No module named mayavi
 
 
 
@@ -532,14 +544,6 @@ Faces :ref:`sphx_glr_auto_scripts_13-make_inverse.py`.
     brain_faces = plot_stc('faces', figure=1)
 
 
-
-
-.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_10_027.png
-    :align: center
-
-
-
-
 Faces - scrambled
 
 
@@ -547,14 +551,6 @@ Faces - scrambled
 .. code-block:: python
 
     brain_contrast = plot_stc('contrast', figure=2)
-
-
-
-
-.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_10_028.png
-    :align: center
-
-
 
 
 LCMV Faces - scrambled
@@ -570,14 +566,6 @@ LCMV Faces - scrambled
              hemi='both', initial_time=0.17, time_unit='s', figure=3)
 
 
-
-
-.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_10_029.png
-    :align: center
-
-
-
-
 BEM
 
 
@@ -587,15 +575,7 @@ BEM
     fig = mne.viz.plot_bem(subject, subjects_dir, slices=[40, 100, 140, 180])
     fig.savefig(op.join('..', 'figures', '%s_bem.pdf' % subject))
 
-
-
-.. image:: /auto_examples/single_subject_analysis/images/sphx_glr_plot_analysis_10_030.png
-    :align: center
-
-
-
-
-**Total running time of the script:** ( 1 minutes  11.380 seconds)
+**Total running time of the script:** ( 0 minutes  42.456 seconds)
 
 
 

@@ -25,7 +25,7 @@ Grand-average group contrasts for sensor space, dSPM, and LCMV.
     sys.path.append(op.join('..', '..', 'processing'))
     from library.config import (meg_dir, subjects_dir, set_matplotlib_defaults,
                                 l_freq, tmax)  # noqa: E402
-
+    l_freq=1
     evokeds = mne.read_evokeds(op.join(meg_dir,
                                'grand_average_highpass-%sHz-ave.fif' % l_freq))[:3]
 
@@ -145,8 +145,18 @@ Source-space. See :ref:`sphx_glr_auto_scripts_14-group_average_source.py`
 
 
 
-.. image:: /auto_examples/group_analysis/images/sphx_glr_plot_group_002.png
-    :align: center
+.. code-block:: pytb
+
+    Traceback (most recent call last):
+      File "/mnt/bakraid/larsoner/mne-biomag-group-demo/mne-biomag-group-demo/scripts/results/group_analysis/plot_group.py", line 81, in <module>
+        clim=dict(kind='value', lims=lims), foreground='k')
+      File "/home/larsoner/custombuilds/mne-python/mne/source_estimate.py", line 1462, in plot
+        spacing=spacing)
+      File "/home/larsoner/custombuilds/mne-python/mne/viz/_3d.py", line 1444, in plot_source_estimates
+        spacing=spacing, time_viewer=time_viewer)
+      File "/home/larsoner/custombuilds/mne-python/mne/viz/_3d.py", line 1212, in _plot_mpl_stc
+        "Got %s." % hemi)
+    ValueError: hemi must be 'lh' or 'rh' when using matplotlib. Got both.
 
 
 
@@ -167,15 +177,7 @@ LCMV beamformer
     brain_lcmv.save_image(op.join('..', 'figures',
                                   'lcmv-ave_highpass-%sHz.png' % (l_freq,)))
 
-
-
-.. image:: /auto_examples/group_analysis/images/sphx_glr_plot_group_003.png
-    :align: center
-
-
-
-
-**Total running time of the script:** ( 0 minutes  6.946 seconds)
+**Total running time of the script:** ( 0 minutes  0.567 seconds)
 
 
 

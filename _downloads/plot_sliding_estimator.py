@@ -55,7 +55,7 @@ for a_vs_b in a_vs_bs:
 # Let's plot the mean AUC score across subjects
 set_matplotlib_defaults()
 colors = ['b', 'g']
-fig, ax = plt.subplots(1, figsize=(3.5, 2.5))
+fig, ax = plt.subplots(1, figsize=(2.5, 2.5))
 for c, a_vs_b in zip(colors, a_vs_bs):
     ax.plot(times, mean_scores[a_vs_b], c, label=a_vs_b.replace('_', ' '))
     ax.set(xlabel='Time (s)', ylabel='Area under curve (AUC)')
@@ -66,9 +66,11 @@ ax.axhline(0.5, color='k', linestyle='--', label='Chance level')
 ax.axvline(0.0, color='k', linestyle='--')
 ax.legend()
 fig.tight_layout()
-fig.savefig(op.join('..', 'figures', 'time_decoding_highpass-%sHz.pdf'
-                    % (l_freq,)), bbox_to_inches='tight')
+fig.savefig(op.join('..', 'figures', 'time_decoding_highpass-%sHz.png'
+                    % (l_freq,)),
+    dpi=300)
 plt.show()
+raise RuntimeError
 
 ###############################################################################
 # It seems that `'famous'` vs `'unfamiliar'` gives much noisier time course of

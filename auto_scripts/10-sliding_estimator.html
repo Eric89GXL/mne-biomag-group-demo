@@ -2,6 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Sliding estimator &#8212; MNE Biomag Demo</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
@@ -119,15 +120,15 @@ The contrast across different sensors are combined into a single plot.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <a href="http://scipy.github.io/devdocs/generated/scipy.io.savemat.html#scipy.io.savemat" title="View documentation for scipy.io.savemat"><span class="n">savemat</span></a>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">savemat</span>
 
 <span class="kn">import</span> <span class="nn">mne</span>
-<span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <a href="https://mne-tools.github.io/dev/generated/mne.decoding.SlidingEstimator.html#mne.decoding.SlidingEstimator" title="View documentation for mne.decoding.SlidingEstimator"><span class="n">SlidingEstimator</span></a><span class="p">,</span> <a href="https://mne-tools.github.io/dev/generated/mne.decoding.cross_val_multiscore.html#mne.decoding.cross_val_multiscore" title="View documentation for mne.decoding.cross_val_multiscore"><span class="n">cross_val_multiscore</span></a>
+<span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <span class="n">SlidingEstimator</span><span class="p">,</span> <span class="n">cross_val_multiscore</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="View documentation for sklearn.preprocessing.StandardScaler"><span class="n">StandardScaler</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="View documentation for sklearn.model_selection.StratifiedKFold"><span class="n">StratifiedKFold</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="View documentation for sklearn.pipeline.make_pipeline"><span class="n">make_pipeline</span></a>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">LogisticRegression</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="n">meg_dir</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">N_JOBS</span>
 </pre></div>
@@ -139,11 +140,11 @@ The contrast across different sensors are combined into a single plot.</p>
 
     <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;sub</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">subject_id</span>
     <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-    <span class="n">epochs</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_epochs.html#mne.read_epochs" title="View documentation for mne.read_epochs"><span class="n">mne</span><span class="o">.</span><span class="n">read_epochs</span></a><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">read_epochs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span>
                              <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-epo.fif&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">)))</span>
 
     <span class="c1"># We define the epochs and the labels</span>
-    <span class="n">epochs</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.concatenate_epochs.html#mne.concatenate_epochs" title="View documentation for mne.concatenate_epochs"><span class="n">mne</span><span class="o">.</span><span class="n">concatenate_epochs</span></a><span class="p">([</span><span class="n">epochs</span><span class="p">[</span><span class="n">condition1</span><span class="p">],</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">concatenate_epochs</span><span class="p">([</span><span class="n">epochs</span><span class="p">[</span><span class="n">condition1</span><span class="p">],</span>
                                     <span class="n">epochs</span><span class="p">[</span><span class="n">condition2</span><span class="p">]])</span>
     <span class="n">epochs</span><span class="o">.</span><span class="n">apply_baseline</span><span class="p">()</span>
 
@@ -155,20 +156,20 @@ The contrast across different sensors are combined into a single plot.</p>
     <span class="n">X</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
     <span class="n">n_cond1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="n">condition1</span><span class="p">])</span>
     <span class="n">n_cond2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="n">condition2</span><span class="p">])</span>
-    <span class="n">y</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.r_.html#numpy.r_" title="View documentation for numpy.r_"><span class="n">np</span><span class="o">.</span><span class="n">r_</span></a><span class="p">[</span><a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.ones.html#numpy.ones" title="View documentation for numpy.ones"><span class="n">np</span><span class="o">.</span><span class="n">ones</span></a><span class="p">(</span><span class="n">n_cond1</span><span class="p">),</span> <a href="https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.zeros.html#numpy.zeros" title="View documentation for numpy.zeros"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">(</span><span class="n">n_cond2</span><span class="p">)]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_cond1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_cond2</span><span class="p">)]</span>
 
     <span class="c1"># Use AUC because chance level is same regardless of the class balance</span>
-    <span class="n">se</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.decoding.SlidingEstimator.html#mne.decoding.SlidingEstimator" title="View documentation for mne.decoding.SlidingEstimator"><span class="n">SlidingEstimator</span></a><span class="p">(</span>
-        <a href="http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="View documentation for sklearn.pipeline.make_pipeline"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="View documentation for sklearn.preprocessing.StandardScaler"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="View documentation for sklearn.linear_model.LogisticRegression"><span class="n">LogisticRegression</span></a><span class="p">()),</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">SlidingEstimator</span><span class="p">(</span>
+        <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">()),</span>
         <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">)</span>
-    <span class="n">scores</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.decoding.cross_val_multiscore.html#mne.decoding.cross_val_multiscore" title="View documentation for mne.decoding.cross_val_multiscore"><span class="n">cross_val_multiscore</span></a><span class="p">(</span><span class="n">se</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="View documentation for sklearn.model_selection.StratifiedKFold"><span class="n">StratifiedKFold</span></a><span class="p">())</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_multiscore</span><span class="p">(</span><span class="n">se</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">StratifiedKFold</span><span class="p">())</span>
 
     <span class="c1"># let&#39;s save the scores now</span>
     <span class="n">a_vs_b</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_vs_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">condition1</span><span class="p">),</span>
                            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">condition2</span><span class="p">))</span>
     <span class="n">fname_td</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_highpass-</span><span class="si">%s</span><span class="s1">Hz-td-auc-</span><span class="si">%s</span><span class="s1">.mat&#39;</span>
                             <span class="o">%</span> <span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">a_vs_b</span><span class="p">))</span>
-    <a href="http://scipy.github.io/devdocs/generated/scipy.io.savemat.html#scipy.io.savemat" title="View documentation for scipy.io.savemat"><span class="n">savemat</span></a><span class="p">(</span><span class="n">fname_td</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;scores&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">:</span> <span class="n">epochs</span><span class="o">.</span><span class="n">times</span><span class="p">})</span>
+    <span class="n">savemat</span><span class="p">(</span><span class="n">fname_td</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;scores&#39;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">:</span> <span class="n">epochs</span><span class="o">.</span><span class="n">times</span><span class="p">})</span>
 
 
 <span class="c1"># Here we go parallel inside the :class:`mne.decoding.SlidingEstimator`</span>
@@ -181,10 +182,10 @@ The contrast across different sensors are combined into a single plot.</p>
 </pre></div>
 </div>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer docutils container">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-footer container">
+<div class="sphx-glr-download container">
 <a class="reference download internal" href="../_downloads/10-sliding_estimator.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">10-sliding_estimator.py</span></code></a></div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download container">
 <a class="reference download internal" href="../_downloads/10-sliding_estimator.ipynb" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">10-sliding_estimator.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -202,8 +203,8 @@ The contrast across different sensors are combined into a single plot.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-30.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7+.<br/>
     </p>
   </div>
 </footer>

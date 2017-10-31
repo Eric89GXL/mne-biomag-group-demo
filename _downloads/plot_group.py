@@ -18,7 +18,7 @@ import mne
 sys.path.append(op.join('..', '..', 'processing'))
 from library.config import (meg_dir, subjects_dir, set_matplotlib_defaults,
                             l_freq, tmax)  # noqa: E402
-
+l_freq=1
 evokeds = mne.read_evokeds(op.join(meg_dir,
                            'grand_average_highpass-%sHz-ave.fif' % l_freq))[:3]
 
