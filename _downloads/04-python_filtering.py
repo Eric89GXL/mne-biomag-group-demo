@@ -13,7 +13,6 @@ directory.
 
 import os
 import os.path as op
-from warnings import warn
 
 import mne
 from mne import pick_types
@@ -35,14 +34,7 @@ def run_filter(subject_id):
                            'run_%02d_sss.fif')
     for run in range(1, 7):
         raw_in = raw_fname_in % run
-        try:
-            raw = mne.io.read_raw_fif(raw_in, preload=True, verbose='error')
-        except AttributeError:
-            # Some files on openfmri are corrupted and cannot be read.
-            warn('Could not read file %s. '
-                 'Skipping run %s from subject %s.' % (raw_in, run, subject))
-            continue
-
+        raw = mne.io.read_raw_fif(raw_in, preload=True, verbose='error')
         raw.set_channel_types({'EEG061': 'eog',
                                'EEG062': 'eog',
                                'EEG063': 'ecg',

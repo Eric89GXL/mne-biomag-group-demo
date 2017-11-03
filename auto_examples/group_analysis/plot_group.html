@@ -122,7 +122,7 @@
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">subjects_dir</span><span class="p">,</span> <span class="n">set_matplotlib_defaults</span><span class="p">,</span>
-                            <span class="n">l_freq</span><span class="p">,</span> <span class="n">tmax</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
+                            <span class="n">l_freq</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">annot_kwargs</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
 
 <span class="n">evokeds</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.read_evokeds.html#mne.read_evokeds" title="View documentation for mne.read_evokeds"><span class="n">mne</span><span class="o">.</span><span class="n">read_evokeds</span></a><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span>
                            <span class="s1">&#39;grand_average_highpass-</span><span class="si">%s</span><span class="s1">Hz-ave.fif&#39;</span> <span class="o">%</span> <span class="n">l_freq</span><span class="p">))[:</span><span class="mi">3</span><span class="p">]</span>
@@ -166,7 +166,8 @@ publication ready graph.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">l_freq</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;A&#39;</span> <span class="k">if</span> <span class="n">l_freq</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="o">**</span><span class="n">annot_kwargs</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;grand_average_highpass-</span><span class="si">%s</span><span class="s1">Hz.pdf&#39;</span> <span class="o">%</span> <span class="n">l_freq</span><span class="p">))</span>
 <a href="http://matplotlib.org/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="View documentation for matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -199,7 +200,7 @@ publication ready graph.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_group_003.png" class="align-center" src="../../_images/sphx_glr_plot_group_003.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  6.935 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  5.370 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_group.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_group.py</span></code></a></div>
@@ -221,7 +222,7 @@ publication ready graph.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-03.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

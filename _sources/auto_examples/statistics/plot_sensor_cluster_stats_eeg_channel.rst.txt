@@ -27,7 +27,7 @@ on the contrast faces vs. scrambled.
 
     sys.path.append(op.join('..', '..', 'processing'))
     from library.config import (meg_dir, l_freq, N_JOBS, set_matplotlib_defaults,
-                                exclude_subjects)  # noqa: E402
+                                exclude_subjects, annot_kwargs)  # noqa: E402
 
 
 
@@ -157,11 +157,12 @@ Visualize results
 
     times = 1e3 * contrast.times
 
-    fig, axes = plt.subplots(2, sharex=True, figsize=(3.5, 2.5))
+    fig, axes = plt.subplots(2, sharex=True, figsize=(3.3, 2.5))
     ax = axes[0]
     ax.plot(times, 1e6 * data.mean(axis=0), label="ERP Contrast")
     ax.set(title='Channel : ' + channel, ylabel="EEG (uV)", ylim=[-5, 2.5])
     ax.legend()
+    ax.annotate('A', (-0.16, 1.15), **annot_kwargs)
 
     ax = axes[1]
     for i_c, c in enumerate(clusters):
@@ -173,7 +174,7 @@ Visualize results
     ax.legend((h1,), (u'p < %s' % p_thresh,), loc='upper right', ncol=1)
     ax.set(xlabel="time (ms)", ylabel="T-values",
            ylim=[-10., 10.], xlim=contrast.times[[0, -1]] * 1000)
-    fig.tight_layout()
+    fig.tight_layout(pad=0.5)
     fig.savefig(op.join('..', 'figures', 'sensorstat_highpass-%sHz.pdf'
                         % (l_freq,)), bbox_to_inches='tight')
     plt.show()
@@ -186,7 +187,7 @@ Visualize results
 
 
 
-**Total running time of the script:** ( 0 minutes  6.416 seconds)
+**Total running time of the script:** ( 0 minutes  6.316 seconds)
 
 
 

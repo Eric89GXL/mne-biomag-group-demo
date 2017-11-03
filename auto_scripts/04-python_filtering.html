@@ -118,7 +118,6 @@ for more. The filtered data are saved to separate files to the subject’s’MEG
 directory.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <a href="https://mne-tools.github.io/dev/generated/mne.pick_types.html#mne.pick_types" title="View documentation for mne.pick_types"><span class="n">pick_types</span></a>
@@ -140,14 +139,7 @@ directory.</p>
                            <span class="s1">&#39;run_</span><span class="si">%02d</span><span class="s1">_sss.fif&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
         <span class="n">raw_in</span> <span class="o">=</span> <span class="n">raw_fname_in</span> <span class="o">%</span> <span class="n">run</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">raw</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="View documentation for mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_in</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="c1"># Some files on openfmri are corrupted and cannot be read.</span>
-            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Could not read file </span><span class="si">%s</span><span class="s1">. &#39;</span>
-                 <span class="s1">&#39;Skipping run </span><span class="si">%s</span><span class="s1"> from subject </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">raw_in</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">subject</span><span class="p">))</span>
-            <span class="k">continue</span>
-
+        <span class="n">raw</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.io.read_raw_fif.html#mne.io.read_raw_fif" title="View documentation for mne.io.read_raw_fif"><span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_fif</span></a><span class="p">(</span><span class="n">raw_in</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
         <span class="n">raw</span><span class="o">.</span><span class="n">set_channel_types</span><span class="p">({</span><span class="s1">&#39;EEG061&#39;</span><span class="p">:</span> <span class="s1">&#39;eog&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;EEG062&#39;</span><span class="p">:</span> <span class="s1">&#39;eog&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;EEG063&#39;</span><span class="p">:</span> <span class="s1">&#39;ecg&#39;</span><span class="p">,</span>
@@ -200,7 +192,7 @@ directory.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-10-31.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-03.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
