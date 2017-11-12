@@ -179,7 +179,7 @@ Plotting
 
 
 
-**Total running time of the script:** ( 0 minutes  52.072 seconds)
+**Total running time of the script:** ( 1 minutes  7.445 seconds)
 
 
 

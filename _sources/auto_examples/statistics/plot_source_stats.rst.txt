@@ -123,19 +123,20 @@ simplicity we'll do 1024.
 
  Out::
 
-    stat_fun(H1): min=-5.671886 max=9.231941
+    stat_fun(H1): min=-5.625422 max=10.103996
     Running initial clustering
-    Found 841 clusters
+    Found 915 clusters
     Permuting 1023 times...
     Computing cluster p-values
-    Step-down-in-jumps iteration #1 found 3 clusters to exclude from subsequent iterations
+    Step-down-in-jumps iteration #1 found 4 clusters to exclude from subsequent iterations
     Permuting 1023 times...
     Computing cluster p-values
     Step-down-in-jumps iteration #2 found 0 additional clusters to exclude from subsequent iterations
     Done.
-    Found cluster with p=0.0341797
-    Found cluster with p=0.0244141
-    Found cluster with p=0.0214844
+    Found cluster with p=0.0185547
+    Found cluster with p=0.0371094
+    Found cluster with p=0.0234375
+    Found cluster with p=0.0234375
 
 
 Visualize the results:
@@ -164,7 +165,7 @@ Visualize the results:
 
 
 
-**Total running time of the script:** ( 15 minutes  44.255 seconds)
+**Total running time of the script:** ( 14 minutes  6.834 seconds)
 
 
 
