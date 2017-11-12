@@ -71,7 +71,7 @@ Epochs :ref:`sphx_glr_auto_scripts_06-make_epochs.py`.
 
 .. code-block:: python
 
-    eve_fname = op.join(subject_dir, 'run_01_filt_sss-eve.fif')
+    eve_fname = op.join(subject_dir, 'run_01-eve.fif')
     epo_fname = op.join(subject_dir,
                         '%s_highpass-%sHz-epo.fif' % (subject, l_freq))
 

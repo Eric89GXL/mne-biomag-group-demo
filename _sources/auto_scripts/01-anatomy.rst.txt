@@ -82,7 +82,7 @@ See the `Setup & Configuration`_ section of the Freesurfer manual.
                 shutil.copy(f_src, f_dst)
 
         # Fix the headers for subject 19
-        if not op.isfile(op.join(dst_flash, "mef05_0.nii.gz")):
+        if subject_id == 19:
             print('  Fixing FLASH files for %s' % (subject,))
             fnames = (['mef05_%d.mgz' % x for x in range(7)] +
                       ['mef30_%d.mgz' % x for x in range(7)])

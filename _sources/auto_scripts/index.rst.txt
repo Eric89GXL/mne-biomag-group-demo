@@ -53,7 +53,7 @@ Processing scripts
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The events are extracted from stimulus channel &#x27;STI101&#x27;. The events are saved to the subject&#x27;s ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The events are extracted from stimulus channel 'STI101'. The events are saved to the subject's ...">
 
 .. only:: html
 

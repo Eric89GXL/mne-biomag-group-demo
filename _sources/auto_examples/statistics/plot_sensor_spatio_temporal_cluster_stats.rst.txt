@@ -130,10 +130,10 @@ Assemble the data and run the cluster stats on channel data
 
  Out::
 
-    stat_fun(H1): min=-9.809284 max=12.638144
+    stat_fun(H1): min=-9.731495 max=12.960017
     No disjoint connectivity sets found
     Running initial clustering
-    Found 6 clusters
+    Found 7 clusters
     Permuting 1023 times...
     Computing cluster p-values
     Step-down-in-jumps iteration #1 found 1 cluster to exclude from subsequent iterations
@@ -238,7 +238,7 @@ Visualize the spatio-temporal clusters
 
 
 
-**Total running time of the script:** ( 0 minutes  5.995 seconds)
+**Total running time of the script:** ( 0 minutes  5.360 seconds)
 
 
 

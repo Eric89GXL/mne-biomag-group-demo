@@ -208,7 +208,7 @@ See :ref:`sphx_glr_auto_scripts_03-maxwell_filtering.py`.
 
 
 
-**Total running time of the script:** ( 0 minutes  21.959 seconds)
+**Total running time of the script:** ( 0 minutes  26.812 seconds)
 
 
 

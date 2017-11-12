@@ -105,7 +105,7 @@ Epochs :ref:`sphx_glr_auto_scripts_06-make_epochs.py`.
 
 .. code-block:: python
 
-    eve_fname = op.join(subject_dir, 'run_01_filt_sss-eve.fif')
+    eve_fname = op.join(subject_dir, 'run_01-eve.fif')
     epo_fname = op.join(subject_dir, '%s-tsss_%d-epo.fif' % (subject, st_duration))
 
     events = mne.read_events(eve_fname)
@@ -412,7 +412,7 @@ Covariance :ref:`sphx_glr_auto_scripts_07-make_evoked.py`.
 
 
 
-**Total running time of the script:** ( 0 minutes  32.440 seconds)
+**Total running time of the script:** ( 0 minutes  32.536 seconds)
 
 
 

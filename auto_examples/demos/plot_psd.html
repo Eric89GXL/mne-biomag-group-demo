@@ -183,6 +183,11 @@ we remove it from the info and show only the HPI coil frequencies.</p>
     <span class="n">average</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">line_alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">fmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">350</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span>
     <span class="n">spatial_colors</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="p">[</span><span class="n">ax</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="c1"># A little hack fix for matplotlib bug on some systems</span>
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">texts</span><span class="p">:</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">text</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
 
 <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_lines</span><span class="p">(),</span> <span class="n">colors</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
@@ -214,7 +219,7 @@ we remove it from the info and show only the HPI coil frequencies.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_psd_001.png" class="align-center" src="../../_images/sphx_glr_plot_psd_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  5.549 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  5.373 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_psd.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_psd.py</span></code></a></div>
@@ -236,7 +241,7 @@ we remove it from the info and show only the HPI coil frequencies.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-03.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-11.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>
