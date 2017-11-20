@@ -112,13 +112,12 @@
 <span id="sphx-glr-auto-scripts-05-run-ica-py"></span><h1>05. Run ICA<a class="headerlink" href="#run-ica" title="Permalink to this headline">¶</a></h1>
 <p>ICA decomposition using fastICA.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">op</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">from</span> <span class="nn">mne.preprocessing</span> <span class="kn">import</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="View documentation for mne.preprocessing.ICA"><span class="n">ICA</span></a>
 <span class="kn">from</span> <span class="nn">mne.parallel</span> <span class="kn">import</span> <span class="n">parallel_func</span>
 
-<span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="n">meg_dir</span>
+<span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="n">meg_dir</span><span class="p">,</span> <span class="n">random_state</span>
 
 <span class="c1"># Here we always process with the 1 Hz highpass data (instead of using</span>
 <span class="c1"># l_freq) because ICA needs a highpass.</span>
@@ -153,7 +152,7 @@
     <span class="c1"># which are not prevalent in EEG (blink artifacts are, but we will remove</span>
     <span class="c1"># trials with blinks at the epoching stage).</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Fitting ICA&#39;</span><span class="p">)</span>
-    <span class="n">ica</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="View documentation for mne.preprocessing.ICA"><span class="n">ICA</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;fastica&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">)</span>
+    <span class="n">ica</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.preprocessing.ICA.html#mne.preprocessing.ICA" title="View documentation for mne.preprocessing.ICA"><span class="n">ICA</span></a><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;fastica&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">)</span>
     <span class="n">picks</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.pick_types.html#mne.pick_types" title="View documentation for mne.pick_types"><span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span></a><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">meg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">eog</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                            <span class="n">stim</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;bads&#39;</span><span class="p">)</span>
     <span class="n">ica</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">reject</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="mf">4000e-13</span><span class="p">,</span> <span class="n">mag</span><span class="o">=</span><span class="mf">4e-12</span><span class="p">),</span>
@@ -191,7 +190,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-12.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-17.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

@@ -124,7 +124,7 @@ on the contrast faces vs. scrambled.</p>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processing&#39;</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">N_JOBS</span><span class="p">,</span> <span class="n">set_matplotlib_defaults</span><span class="p">,</span>
-                            <span class="n">exclude_subjects</span><span class="p">,</span> <span class="n">annot_kwargs</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
+                            <span class="n">exclude_subjects</span><span class="p">,</span> <span class="n">annot_kwargs</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>  <span class="c1"># noqa: E402</span>
 </pre></div>
 </div>
 <p>Read all the data</p>
@@ -194,7 +194,7 @@ on the contrast faces vs. scrambled.</p>
 <span class="n">cluster_stats</span> <span class="o">=</span> <a href="https://mne-tools.github.io/dev/generated/mne.stats.permutation_cluster_1samp_test.html#mne.stats.permutation_cluster_1samp_test" title="View documentation for mne.stats.permutation_cluster_1samp_test"><span class="n">permutation_cluster_1samp_test</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">N_JOBS</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
     <span class="n">step_down_p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">,</span>
-    <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_permutations</span><span class="p">)</span>
+    <span class="n">n_permutations</span><span class="o">=</span><span class="n">n_permutations</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
 
 <span class="n">T_obs</span><span class="p">,</span> <span class="n">clusters</span><span class="p">,</span> <span class="n">cluster_p_values</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cluster_stats</span>
 </pre></div>
@@ -241,7 +241,7 @@ on the contrast faces vs. scrambled.</p>
 </pre></div>
 </div>
 <img alt="../../_images/sphx_glr_plot_sensor_cluster_stats_eeg_channel_002.png" class="align-center" src="../../_images/sphx_glr_plot_sensor_cluster_stats_eeg_channel_002.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  4.770 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  1.399 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../../_downloads/plot_sensor_cluster_stats_eeg_channel.py" download=""><code class="xref download docutils literal"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_sensor_cluster_stats_eeg_channel.py</span></code></a></div>
@@ -263,7 +263,7 @@ on the contrast faces vs. scrambled.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-12.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-17.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

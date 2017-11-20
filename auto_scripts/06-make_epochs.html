@@ -130,7 +130,7 @@ a factor of 5 (from a sample rate of 1100 Hz to 220 Hz).</p>
 <span class="kn">from</span> <span class="nn">autoreject</span> <span class="kn">import</span> <span class="n">get_rejection_threshold</span>
 
 <span class="kn">from</span> <span class="nn">library.config</span> <span class="kn">import</span> <span class="p">(</span><span class="n">meg_dir</span><span class="p">,</span> <span class="n">map_subjects</span><span class="p">,</span> <span class="n">l_freq</span><span class="p">,</span> <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span>
-                            <span class="n">reject_tmax</span><span class="p">)</span>
+                            <span class="n">reject_tmax</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We define the events and the onset and offset of the epochs</p>
@@ -255,7 +255,8 @@ a factor of 5 (from a sample rate of 1100 Hz to 220 Hz).</p>
     <span class="n">ica</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
 
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Getting rejection thresholds&#39;</span><span class="p">)</span>
-    <span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">reject_tmax</span><span class="p">))</span>
+    <span class="n">reject</span> <span class="o">=</span> <span class="n">get_rejection_threshold</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">reject_tmax</span><span class="p">),</span>
+                                     <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
     <span class="n">epochs</span><span class="o">.</span><span class="n">drop_bad</span><span class="p">(</span><span class="n">reject</span><span class="o">=</span><span class="n">reject</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Dropped </span><span class="si">%0.1f%%</span><span class="s1"> of epochs&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">drop_log_stats</span><span class="p">(),))</span>
 
@@ -297,7 +298,7 @@ a factor of 5 (from a sample rate of 1100 Hz to 220 Hz).</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-12.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-17.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

@@ -370,6 +370,46 @@ Processing scripts
    :hidden:
 
    /auto_scripts/99-make_reports
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Check if dependencies are present ">
+
+.. only:: html
+
+    .. figure:: /auto_scripts/images/thumb/sphx_glr_check_system_thumb.png
+
+        :ref:`sphx_glr_auto_scripts_check_system.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_scripts/check_system
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Auxiliary file for Make ">
+
+.. only:: html
+
+    .. figure:: /auto_scripts/images/thumb/sphx_glr_clean_thumb.png
+
+        :ref:`sphx_glr_auto_scripts_clean.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_scripts/clean
 .. raw:: html
 
     <div style='clear:both'></div>
