@@ -50,7 +50,7 @@ def run_inverse(subject_id):
 
     for evoked in evokeds:
         stc = apply_inverse(evoked, inverse_operator, lambda2, "dSPM",
-                            pick_ori='vector')
+                            pick_ori='normal')
         stc.save(op.join(data_path, 'mne_dSPM_inverse_highpass-%sHz-%s'
                          % (l_freq, evoked.comment)))
 
