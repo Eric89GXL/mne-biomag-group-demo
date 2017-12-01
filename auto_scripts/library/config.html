@@ -123,8 +123,8 @@
     <span class="n">study_path</span> <span class="o">=</span> <span class="s1">&#39;/tsi/doctorants/data_gramfort/dgw_faces&#39;</span>
     <span class="n">N_JOBS</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="k">elif</span> <span class="n">user</span> <span class="o">==</span> <span class="s1">&#39;mjas&#39;</span><span class="p">:</span>
-    <span class="n">study_path</span> <span class="o">=</span> <span class="s1">&#39;/tsi/doctorants/data_gramfort/dgw_faces&#39;</span>
-    <span class="n">N_JOBS</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">study_path</span> <span class="o">=</span> <span class="s1">&#39;/tsi/doctorants/data_gramfort/dgw_faces_reproduce&#39;</span>
+    <span class="n">N_JOBS</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">elif</span> <span class="n">user</span> <span class="o">==</span> <span class="s1">&#39;jleppakangas&#39;</span><span class="p">:</span>
     <span class="n">study_path</span> <span class="o">=</span> <span class="s1">&#39;/tsi/doctorants/data_gramfort/dgw_faces&#39;</span>
     <span class="n">N_JOBS</span> <span class="o">=</span> <span class="mi">8</span>
@@ -157,6 +157,10 @@
                 <span class="mi">13</span><span class="p">:</span> <span class="s1">&#39;subject_16&#39;</span><span class="p">,</span> <span class="mi">14</span><span class="p">:</span> <span class="s1">&#39;subject_17&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">:</span> <span class="s1">&#39;subject_18&#39;</span><span class="p">,</span>
                 <span class="mi">16</span><span class="p">:</span> <span class="s1">&#39;subject_19&#39;</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span> <span class="s1">&#39;subject_23&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">:</span> <span class="s1">&#39;subject_24&#39;</span><span class="p">,</span>
                 <span class="mi">19</span><span class="p">:</span> <span class="s1">&#39;subject_25&#39;</span><span class="p">}</span>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">study_path</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">study_path</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">subjects_dir</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">subjects_dir</span><span class="p">)</span>
@@ -233,7 +237,7 @@ are placed in the same folder.</p>
       
     </p>
     <p>
-        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-17.<br/>
+        &copy; Copyright 2017, MNE Developers. Last updated on 2017-11-30.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.<br/>
     </p>
   </div>

@@ -192,7 +192,7 @@ First we show the log scale to spot bad sensors.
 
 
 
-**Total running time of the script:** ( 0 minutes  5.132 seconds)
+**Total running time of the script:** ( 0 minutes  5.276 seconds)
 
 
 

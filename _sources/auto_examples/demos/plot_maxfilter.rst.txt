@@ -70,7 +70,7 @@ First the filtered raw data.
  Out::
 
     148 events found
-    Events id: [ 5  6  7 13 14 15 17 18 19]
+    Event IDs: [ 5  6  7 13 14 15 17 18 19]
 
 
 Then Maxfiltered and SSS'd data.
@@ -179,7 +179,7 @@ Plotting
 
 
 
-**Total running time of the script:** ( 0 minutes  53.013 seconds)
+**Total running time of the script:** ( 0 minutes  49.055 seconds)
 
 
 
